@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class SessionForm extends React.Component {
 
@@ -48,6 +49,8 @@ export default class SessionForm extends React.Component {
               </div>
               <button className='rect-btn' onClick={this.loginWithDemo}>Demo Account</button>
             </div>
+
+            <p>Dont have an account? <Link className='link' to='/signup'>Sign Up</Link></p>
           </form>
         </div>
       </div>

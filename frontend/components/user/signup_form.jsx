@@ -75,7 +75,7 @@ export default class SignupForm extends React.Component {
 
             <input className='rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
 
-            <p>Already have an account? <Link className='link' to='/signup'>Log In</Link></p>
+            <p>Already have an account? <Link className='link' to='/login'>Log In</Link></p>
 
           </form>
         </div>
