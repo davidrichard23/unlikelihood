@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SessionForm from './session_form';
+import SignupForm from './signup_form';
 import { signup } from '../../actions/session_actions';
 
 const msp = state => ({
@@ -11,4 +11,4 @@ const mdp = dispatch => ({
   processForm: formData => dispatch(signup(formData))
 });
 
-export default connect(msp, mdp)(SessionForm);
+export default connect(msp, mdp)(SignupForm);
