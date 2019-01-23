@@ -3,6 +3,7 @@ class Api::SessionsController < ApplicationController
     @user = User.find_by_credentials(user_params[:username], user_params[:password])
 
     if @user
+      login!(@user)
       render json: @user
     else
       render json: ['Invalid username or password'], status: 422
@@ -11,10 +12,10 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     if !current_user
-      render json: {}
+      render json: {}, status: 422
     else
       logout!
-      render json: {}, status: 422
+      render json: {}
     end
   end
 

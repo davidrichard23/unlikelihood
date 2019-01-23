@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Nav from './nav_bar';
 
 export default class Dashboard extends Component {
 
@@ -7,8 +8,9 @@ export default class Dashboard extends Component {
 
     return (
       <div>
+        <Nav />
         <h2>Hello {currentUser.username}</h2>  
-        <button onClick={this.props.logout}>Logout</button>
+        
       </div>
     );
   }

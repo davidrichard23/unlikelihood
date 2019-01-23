@@ -13,3 +13,178 @@
  *= require_tree .
  *= require_self
  */
+
+ body {
+   padding: 0;
+   margin: 0;
+   font-family: 'PT Sans', sans-serif;
+ }
+
+ a {
+   text-decoration: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ button, input[type=submit] {
+  outline: none;
+  border: none;
+
+ }
+
+input[type=text], input[type=password] {
+  background-color: rgb(250, 250, 250);
+  border-radius: 4px;
+  border: 1px solid rgb(250, 250, 250);
+  height: 48px;
+  width: 412px;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  outline: none;
+}
+input[type=text]:focus, input[type=password]:focus {
+  border: 1px solid rgb(33, 206, 153);
+  
+}
+
+.btn {
+  color: black;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.rect-btn {
+  font-size: 13px;
+  background-color: rgb(33, 206, 153);
+  height: 48px;
+  padding: 0 48px;
+  border-radius: 4px;
+  color: white;
+  width: 140px;
+  box-sizing: border-box;
+}
+
+.round-btn {
+  font-size: 17px;
+  font-weight: 700;
+  background-color: rgb(33, 206, 153);
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 24px;
+  color: white;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+
+.nav {
+  display: flex;
+  justify-content: center;
+  height: 72px;
+  box-sizing: border-box;
+  /* background-color: lightgray; */
+}
+
+.nav .inner {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1192px;
+}
+
+.nav .left, .nav .right {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav .btn {
+  margin: 20px;
+}
+
+
+
+
+
+
+.splash-page .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.splash-page .section-one {
+  display: flex;
+  width: 1192px;
+}
+.splash-page .section-one .left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0 0 310px;
+}
+.splash-page .section-one .left h1 {
+  font-size: 46px;
+}
+.splash-page .section-one .left p {
+  line-height: 26px;
+}
+.splash-page .section-one .right {
+  flex: 0 0 922px;
+}
+.splash-page .section-one .right img {
+  max-width: 100%;
+}
+
+
+
+
+
+
+
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.login-main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  margin-left: 52px;
+  min-height: 100vh;
+}
+
+.login-main-content h1 {
+  font-size: 26px;
+}
+
+.login-main-content .row {
+  margin-top: 60px;
+}
+
+.login-main-content .rect-btn {
+  margin-right: 15px;
+}
+
+.login-main-content label {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.25px;
+  padding-bottom: 9px;
+}
+
+.login-side-image {
+  height: 100vh;
+  background-image: url(https://d2ue93q3u507c2.cloudfront.net/assets/generated_assets/94977d34f99015525dcd0fc9987fcbe6.png);
+  background-size: cover;
+  flex: 1;
+}
