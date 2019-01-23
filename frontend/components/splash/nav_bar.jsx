@@ -6,12 +6,16 @@ export default () => {
     <div className='nav'>
       <div className="inner">
         <div className="left">
-          <Link className='btn' to='/'>Unlikelihood</Link>
+          <Link className='btn thin' to='/'>Unlikelihood</Link>
           <Link className='btn' to='/'>Investing</Link>
+          <Link className='btn' to='/'>
+            Cash Management 
+            <div className='highlight'>Coming Soon</div>
+          </Link>
         </div>
         <div className="right">
-          <Link className='btn' to='/login'>Login</Link>
-          <Link className='btn round-btn' to='/signup'>Signup</Link>
+          <Link className='btn' to='/login'>Log In</Link>
+          <Link className='btn round-btn' to='/signup'>Sign Up</Link>
         </div>
       </div>
     </div>

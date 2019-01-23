@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/session_actions';
 
 const AccountDropdown = props => {
+  if (!props.isOpen) return null;
+  
   return (
     <div className="account-dropdown">
       <button className='btn' onClick={props.logout}>Logout</button>

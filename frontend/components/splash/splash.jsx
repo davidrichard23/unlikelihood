@@ -12,11 +12,14 @@ export default props => {
           <div className="left">
             <h1>Invest for Free</h1>
             <p>Invest in stocks, ETFs, options, and cryptocurrencies, all commission-free, right from your phone or desktop.</p>
-            <Link className='btn round-btn' to='/signup'>Signup</Link>
+            <Link className='btn round-btn' to='/signup'>Sign Up</Link>
           </div>
           <div className="right">
             <img src='https://d2ue93q3u507c2.cloudfront.net/assets-about/6b2e66f81aef0f0d7dbeef37392e0eca.png' />
           </div>
+        </section>
+        <section className='section-two'>
+          <h3>Cash management, coming soon.</h3>
         </section>
       </div>
     </div>

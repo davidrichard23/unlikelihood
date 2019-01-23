@@ -8,8 +8,10 @@ export default class NavBar extends Component {
     super(props);
 
     this.state = {
-      dropdownOpen: true,
+      dropdownOpen: false,
     };
+
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
   
   render() {
@@ -23,11 +25,15 @@ export default class NavBar extends Component {
           </div>
           <div className="right">
             <Link className='btn' to='/'>Home</Link>
-            <Link className='btn' to='/'>Account</Link>
-            {dropdownOpen && <AccountDropdown />}
+            <button className='btn' onClick={this.toggleDropdown}>Account</button>
+            {dropdownOpen && <AccountDropdown isOpen={dropdownOpen} />}
           </div>
         </div>
       </div>
     );
+  }
+
+  toggleDropdown() {
+    this.setState({dropdownOpen: !this.state.dropdownOpen});
   }
 };

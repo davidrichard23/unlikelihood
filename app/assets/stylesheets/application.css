@@ -20,6 +20,11 @@
    font-family: 'PT Sans', sans-serif;
  }
 
+ h1, h2, h3, h4 {
+   padding: 0;
+   margin: 0;
+ }
+
  a {
    text-decoration: none;
    margin: 0;
@@ -32,7 +37,6 @@
  button, input[type=submit] {
   outline: none;
   border: none;
-
  }
 
 input[type=text], input[type=password] {
@@ -54,6 +58,22 @@ input[type=text]:focus, input[type=password]:focus {
   color: black;
   font-size: 17px;
   font-weight: 700;
+  cursor: pointer;
+}
+.btn.thin {
+  font-weight: 400;
+}
+
+.highlight {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: rgb(33, 206, 153);
+  background-color: rgb(231, 248, 243);
+  padding: 0 7px;
+  margin-left: 6px;
+  height: 24px;
+  border-radius: 2px;
 }
 
 .rect-btn {
@@ -84,11 +104,12 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 .nav {
+  position: fixed;
+  background-color: white;
   display: flex;
   justify-content: center;
   height: 72px;
   box-sizing: border-box;
-  /* background-color: lightgray; */
 }
 
 .nav .inner {
@@ -102,11 +123,52 @@ input[type=text]:focus, input[type=password]:focus {
 .nav .left, .nav .right {
   height: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
-.nav .btn {
-  margin: 20px;
+
+
+.splash-page .nav .left .btn {
+  margin-right: 36px;
+}
+.splash-page .nav .right .btn {
+  margin-left: 36px;
+}
+
+
+
+.dashboard-page .nav {
+  height: 64px;
+}
+
+.dashboard-page .nav .inner {
+  width: 1024px;
+}
+
+.dashboard-page .nav .btn {
+  color: #171718;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.dashboard-page .nav .right {
+  flex: 0 0 125px;
+}
+
+.account-dropdown {
+  position: absolute;
+  right: 0;
+  top: 72px;
+  width: 296px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
+}
+
+.account-dropdown button {
+  height: 48px;
+  width: 100%;
+  text-align: left;
 }
 
 
@@ -118,6 +180,7 @@ input[type=text]:focus, input[type=password]:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 72px;
 }
 .splash-page .section-one {
   display: flex;
@@ -143,6 +206,22 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 
+.splash-page .section-two {
+  display: flex;
+  /* background-color: black; */
+  width: 100%;
+  height: 276px;
+  background-image: url(https://d2ue93q3u507c2.cloudfront.net/assets-about/48af77f3599ef4831f0a65762b85db63.png);
+  background-size: cover;
+}
+
+.splash-page .section-two h3 {
+  max-width: 360px;
+  font-size: 34px;
+  font-weight: 700;
+  color: white;
+  padding: 86px 32px;
+}
 
 
 
