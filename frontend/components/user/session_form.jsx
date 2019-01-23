@@ -5,9 +5,8 @@ export default class SessionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
       email: "",
+      password: "",
       balance: 1000,
     };
     
@@ -16,38 +15,24 @@ export default class SessionForm extends React.Component {
   }
   
   render() {
-    const isSignup = this.props.formType === 'signup';
 
     return (
       <div className='login-page'>
-        <div className='login-side-image'>
+        <div className='login-side-image' />
 
-        </div>
         <div className="login-main-content">
-          <h1>Welcome to Robinhood</h1>
+          <h1>Welcome to Unlikelihood</h1>
           {this.Errors()}
 
           <form onSubmit={this.handleSubmit}>
-            {isSignup &&
-              <div>
-                <label htmlFor="email">Email</label>
-                <input 
-                  type="text" 
-                  name="email" 
-                  id="email" 
-                  value={this.state.email}
-                  onChange={this.handleInput('email')}
-                  />
-              </div>
-            }
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input 
               type="text" 
-              name="username" 
-              id="username" 
-              value={this.state.username}
-              onChange={this.handleInput('username')}
-              />
+              name="email" 
+              id="email" 
+              value={this.state.email}
+              onChange={this.handleInput('email')}
+            />
             <label htmlFor="password">Password</label>
             <input 
               type="password" 
@@ -55,30 +40,14 @@ export default class SessionForm extends React.Component {
               id="password" 
               value={this.state.password}
               onChange={this.handleInput('password')}
-              />
-            {isSignup &&
-              <div>
-                <label htmlFor="balance">Starting balance</label>
-                <input 
-                  type="text" 
-                  name="balance" 
-                  id="balance" 
-                  value={this.state.balance}
-                  onChange={this.handleInput('balance')}
-                  />
-              </div>
-            }
+            />
 
             <div className='row'>
               <div>
                 <input className='rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
               </div>
-              {!isSignup && 
-                <button className='rect-btn' onClick={this.loginWithDemo}>Demo Account</button>
-              }
+              <button className='rect-btn' onClick={this.loginWithDemo}>Demo Account</button>
             </div>
-
-            
           </form>
         </div>
       </div>
@@ -108,7 +77,7 @@ export default class SessionForm extends React.Component {
   }
 
   loginWithDemo(e) {
-    this.setState({username: 'demo', password: '111111'}, () => {
+    this.setState({email: 'demo', password: '111111'}, () => {
       this.handleSubmit(e);
     });
   }

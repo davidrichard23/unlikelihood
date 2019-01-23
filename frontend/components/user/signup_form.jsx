@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class SignupForm extends React.Component {
 
@@ -13,72 +14,68 @@ export default class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.loginWithDemo = this.loginWithDemo.bind(this);
   }
 
   render() {
-    const isSignup = this.props.formType === 'signup';
 
     return (
-      <div className='login-page'>
-        <div className='login-side-image'>
-
-        </div>
-        <div className="login-main-content">
-          <h1>Welcome to Robinhood</h1>
+      <div className='signup-page'>
+        <div className="wrapper">
+          <h1>Make your money move</h1>
+          <h2>Robinhood lets you invest in companies you love, commission-free.</h2>
           {this.Errors()}
 
           <form onSubmit={this.handleSubmit}>
-            {isSignup &&
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  value={this.state.email}
-                  onChange={this.handleInput('email')}
+            <div className="row">
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                value={this.state.first_name}
+                placeholder='First Name'
+                onChange={this.handleInput('first_name')}
+                style={{marginRight: 20}}
                 />
-              </div>
-            }
-            <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                value={this.state.last_name}
+                placeholder='Last Name'
+                onChange={this.handleInput('last_name')}
+                />
+            </div>
+            <br/>
             <input
               type="text"
-              name="username"
-              id="username"
-              value={this.state.username}
-              onChange={this.handleInput('username')}
-            />
-            <label htmlFor="password">Password</label>
+              name="email"
+              id="email"
+              value={this.state.email}
+              placeholder='Email'
+              onChange={this.handleInput('email')}
+              />
+            <br/>
             <input
               type="password"
               name="password"
               id="password"
               value={this.state.password}
+              placeholder='Password'
               onChange={this.handleInput('password')}
-            />
-            {isSignup &&
-              <div>
-                <label htmlFor="balance">Starting balance</label>
-                <input
-                  type="text"
-                  name="balance"
-                  id="balance"
-                  value={this.state.balance}
-                  onChange={this.handleInput('balance')}
-                />
-              </div>
-            }
+              />
+            <br/>
+            <input
+              type="text"
+              name="balance"
+              id="balance"
+              value={this.state.balance}
+              placeholder='Starting account balance'
+              onChange={this.handleInput('balance')}
+              />
 
-            <div className='row'>
-              <div>
-                <input className='rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
-              </div>
-              {!isSignup &&
-                <button className='rect-btn' onClick={this.loginWithDemo}>Demo Account</button>
-              }
-            </div>
+            <input className='rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
 
+            <p>Already have an account? <Link className='link' to='/signup'>Log In</Link></p>
 
           </form>
         </div>
@@ -88,7 +85,7 @@ export default class SignupForm extends React.Component {
 
   Errors() {
     const { errors } = this.props
-
+    
     return (
       <ul>
         {errors.map(error => <li key={error}>Error: {error}</li>)}

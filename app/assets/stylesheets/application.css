@@ -44,14 +44,24 @@ input[type=text], input[type=password] {
   border-radius: 4px;
   border: 1px solid rgb(250, 250, 250);
   height: 48px;
-  width: 412px;
+  /* width: 412px; */
   padding: 15px 20px;
   box-sizing: border-box;
   outline: none;
+  font-size: 18px;
 }
 input[type=text]:focus, input[type=password]:focus {
-  border: 1px solid rgb(33, 206, 153);
+  border: 1px solid rgb(33, 206, 153) !important;
   
+}
+
+.link {
+  display: inline;
+  text-decoration: underline;
+  color: rgb(33, 206, 153);
+}
+.link:hover {
+  color: #1ae9aa;
 }
 
 .btn {
@@ -225,6 +235,49 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.signup-page .wrapper {
+  width: 675px;
+}
+  
+.signup-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-page input[type=text], .signup-page input[type=password] {
+  flex: 1;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid rgb(177, 191, 196);
+  padding: 15px 20px;
+}
+.signup-page h1 {
+  font-size: 48px;
+  font-weight: 100;
+}
+
+.signup-page h2 {
+  font-size: 24px;
+  font-weight: 100;
+}
+
+.signup-page .rect-btn {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.signup-page p {
+  color: #b1bfc4;
+  text-align: center;
+  margin-top: 40px;
+}
 
 
 .login-page {
@@ -236,6 +289,7 @@ input[type=text]:focus, input[type=password]:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
   flex: 1;
   height: 100%;
   margin-left: 52px;
