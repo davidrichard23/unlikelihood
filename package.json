@@ -2,8 +2,8 @@
   "name": "robinhood",
   "private": true,
   "scripts": {
-    "postinstall": "webpack",
-    "start": "webpack --watch --mode=production",
+    "postinstall": "./node_modules/.bin/webpack --mode=production",
+    "start": "./node_modules/.bin/webpack --mode=production",
     "webpack": "webpack --watch --mode=development"
   },
   "dependencies": {
