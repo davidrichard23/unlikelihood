@@ -12,8 +12,6 @@ const App = (props) => {
 
   return (
     <div>
-      <h1>Robinhood</h1>
-      
       <Route exact path="/" component={RootComponent} />
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
