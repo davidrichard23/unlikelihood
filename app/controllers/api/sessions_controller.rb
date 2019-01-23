@@ -10,9 +10,12 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    logout!
-    render json: {}, status: 422 if !current_user
-    render json: {}
+    if !current_user
+      render json: {}
+    else
+      logout!
+      render json: {}, status: 422
+    end
   end
 
   def user_params
