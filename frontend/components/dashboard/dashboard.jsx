@@ -9,7 +9,9 @@ export default class Dashboard extends Component {
     return (
       <div className='dashboard-page'>
         <Nav />
-        <h2>Hello {currentUser.username}</h2>  
+        <div className="wrapper">
+          <h2>{currentUser.first_name + ' ' + currentUser.last_name}'s Portfolio</h2>  
+        </div>
         
       </div>
     );

@@ -15,7 +15,9 @@ export default props => {
             <Link className='btn round-btn' to='/signup'>Sign Up</Link>
           </div>
           <div className="right">
+            <div style={{marginRight: -130}}>
             <img src='https://d2ue93q3u507c2.cloudfront.net/assets-about/6b2e66f81aef0f0d7dbeef37392e0eca.png' />
+            </div>
           </div>
         </section>
         <section className='section-two'>

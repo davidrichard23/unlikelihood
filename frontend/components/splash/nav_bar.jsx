@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LogoIcon from '../../img/logo_icon';
 
 export default () => {
   return (
     <div className='nav'>
       <div className="inner">
         <div className="left">
+          <LogoIcon />
           <Link className='btn thin' to='/'>Unlikelihood</Link>
           <Link className='btn' to='/'>Investing</Link>
           <Link className='btn' to='/'>

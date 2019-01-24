@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Search from './search';
 import AccountDropdown from './account_dropdown';
+import LogoIcon from '../../img/logo_icon';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ export default class NavBar extends Component {
 
     return (
       <div className='nav'>
+        <LogoIcon />
         <div className="inner">
           <div className="left">
             <Search />
