@@ -10,8 +10,8 @@ const msp = (state, ownProps) => {
   let chartLow = Infinity;
 
   state.entities.chartData.forEach(d => {
-    if (d.average !== -1) {
-      chartData[d.label] = d.average;
+    if (d.close && d.close !== -1) {
+      chartData[d.label] = d.close;
       if (d.high > chartHigh) chartHigh = d.high;
       if (d.low < chartLow) chartLow = d.low;
     }
@@ -35,7 +35,7 @@ const msp = (state, ownProps) => {
 
 const mdp = dispatch => ({
   fetchAsset: id => dispatch(fetchAsset(id)),
-  fetchChartData: ticker => dispatch(fetchChartData(ticker))
+  fetchChartData: (ticker, range) => dispatch(fetchChartData(ticker, range))
 });
 
 export default connect(msp, mdp)(Asset);

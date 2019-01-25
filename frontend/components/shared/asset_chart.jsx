@@ -46,7 +46,7 @@ export default class AssetChart extends Component {
   }
   
   render() {
-    const { asset, chartData, chartHigh, chartLow } = this.props;
+    const { chartData, chartHigh, chartLow, range } = this.props;
     
     return (
       <div className="asset-chart-container">
@@ -61,6 +61,7 @@ export default class AssetChart extends Component {
               chartLow={chartLow} 
               handleMouseHover={this.handleMouseHover} 
               color={this.state.color}
+              range={range}
               />
           </div>
         </div>
@@ -86,13 +87,16 @@ export default class AssetChart extends Component {
       priceDiff += ` (${((currentPrice - startPrice) / startPrice * 100).toFixed(2)}%)`;
     }
     
-    if (!this.state.isShowingTooltip) priceDiff += ' Today';
+    if (!this.state.isShowingTooltip) 
+      priceDiff = <p>{priceDiff} <span style={{ color: 'rgba(0,0,0,0.2)' }}> Today</span></p>;
+    else
+      priceDiff = <p>{priceDiff}</p>;
     
     return (
       <div>
         <h1>{asset.name}</h1>
         <h2>${currentPrice.toFixed(2)}</h2>
-        <p>{priceDiff}</p>
+        {priceDiff}
       </div>
     );
   }
@@ -130,7 +134,7 @@ export default class AssetChart extends Component {
   
   handleMouseHover(e, el) {
     if (!el[0]) return;
-    
+
     this.setState({
       currentDataIndex: el[0]._index,
       tooltipLeft: el[0]._model.x,
@@ -149,6 +153,11 @@ export default class AssetChart extends Component {
 
 
 
+
+
+
+
+
 class AssetLineChart extends Component {
 
   shouldComponentUpdate(nextProps) {
@@ -158,7 +167,8 @@ class AssetLineChart extends Component {
 
   render() {
     
-    const adjustedWidth = CHART_WIDTH / 78 * Object.keys(this.props.chartData).length;
+    let pointCount = this.findRangePointCount(this.props.range)
+    const adjustedWidth = CHART_WIDTH / pointCount * Object.keys(this.props.chartData).length;
 
     return (
       <LineChart
@@ -181,5 +191,21 @@ class AssetLineChart extends Component {
         }}
       />
     );
+  }
+
+
+  findRangePointCount(range) {
+    switch (range) {
+      case '1D':
+        return 78;
+      case '1M':
+        return 21;
+      case '3M':
+        return 62;
+      case '1Y':
+        return 252;
+      case '5Y':
+        return 1258;
+    }
   }
 }

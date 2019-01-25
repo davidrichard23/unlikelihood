@@ -77,6 +77,9 @@ input[type=text]:focus, input[type=password]:focus {
   font-weight: 700;
   cursor: pointer;
 }
+.btn:hover {
+  color: rgb(33, 206, 153);
+}
 .btn.thin {
   font-weight: 400;
 }
@@ -261,6 +264,40 @@ input[type=text]:focus, input[type=password]:focus {
 .asset-page .wrapper .inner {
   width: 1024px;
   padding-top: 36px;
+}
+.asset-page .wrapper .inner .left {
+  width: 676px;
+}
+
+.time-range-container {
+  margin: 24px 0 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.time-range-container .btn {
+  font-size: 13px;
+  padding: 0 0 12px 0;
+  margin: 0 12px;
+}
+.time-range-container .btn.selected {
+  border-bottom: 2px solid rgb(33, 206, 153);
+}
+
+
+
+.about-container {
+  margin-top: 44px;
+}
+
+.about-container .heading {
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.about-container h2 {
+  font-size: 30px;
+  font-weight: 400;
 }
 
 

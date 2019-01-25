@@ -90,8 +90,9 @@ class Search extends Component {
     this.setState({isFocused: true});
   }
   handleBlur(e) {
-    if (e.relatedTarget && e.relatedTarget.className === 'search-list-item') return;
-    this.setState({isFocused: false});
+    let timer = 0
+    if (e.relatedTarget && e.relatedTarget.className === 'search-list-item') timer = 300;
+    setTimeout(() => this.setState({isFocused: false, searchText: ''}), timer);
   }
 }
 

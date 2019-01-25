@@ -9,8 +9,8 @@ const receiveChartData = chartData => ({
 });
 
 
-export const fetchChartData = ticker => dispatch => {
-  return IexApiUtil.fetchChartData(ticker)
+export const fetchChartData = (ticker, range) => dispatch => {
+  return IexApiUtil.fetchChartData(ticker, range)
   .then(data => {
     return dispatch(receiveChartData(data));
     // return dispatch(receiveChartData(data['Time Series (5min)']));
