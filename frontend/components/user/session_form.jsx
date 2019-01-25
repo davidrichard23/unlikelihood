@@ -45,12 +45,12 @@ export default class SessionForm extends React.Component {
 
             <div className='row'>
               <div>
-                <input className='rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
+                <input className='btn rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
               </div>
-              <button className='rect-btn' onClick={this.loginWithDemo}>Demo Account</button>
+              <button className='btn rect-btn' onClick={this.loginWithDemo}>Demo Account</button>
             </div>
 
-            <p>Dont have an account? <Link className='link' to='/signup'>Sign Up</Link></p>
+            <p style={{marginTop: 30}}>Dont have an account? <Link className='link' to='/signup'>Sign Up</Link></p>
           </form>
         </div>
       </div>
