@@ -6,6 +6,10 @@ class Api::AssetsController < ApplicationController
     render :index
   end
 
+  def show 
+    @asset = Asset.find(params[:id])
+  end
+
 
   def asset_params
     params.permit(:text)

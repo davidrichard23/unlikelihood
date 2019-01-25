@@ -10,8 +10,6 @@ export const highlightMatch = (text, matchText) => {
   const matchStr = text.slice(startIndex, endIndex);
   const endStr = text.slice(endIndex);
 
-  console.log(text, startStr, matchText, endStr)
-
   return (
     <p>
       {startStr}

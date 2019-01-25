@@ -8,16 +8,16 @@ export default () => {
       <div className="inner">
         <div className="left">
           <LogoIcon />
-          <Link className='btn thin' to='/'>Unlikelihood</Link>
-          <Link className='btn' to='/'>Investing</Link>
-          <Link className='btn' to='/'>
+          <Link className='btn thin flex-centered' to='/'>Unlikelihood</Link>
+          <Link className='btn flex-centered' to='/'>Investing</Link>
+          <Link className='btn flex-centered' to='/'>
             Cash Management 
             <div className='highlight'>Coming Soon</div>
           </Link>
         </div>
         <div className="right">
-          <Link className='btn' to='/login'>Log In</Link>
-          <Link className='btn round-btn' to='/signup'>Sign Up</Link>
+          <Link className='btn flex-centered' to='/login'>Log In</Link>
+          <Link className='btn round-btn flex-centered' to='/signup'>Sign Up</Link>
         </div>
       </div>
     </div>

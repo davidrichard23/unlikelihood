@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchAssets } from '../../actions/assets_actions';
 import { highlightMatch } from '../../util/text_util';
 
@@ -63,14 +64,15 @@ class Search extends Component {
   }
 
   Asset(asset) {
+    const id = asset.id;
     const ticker = highlightMatch(asset.ticker.toUpperCase(), this.state.searchText.toUpperCase());
     const name = highlightMatch(asset.name, this.state.searchText);
 
     return (
-      <div className='search-list-item'>
+      <Link key={id} to={`/assets/${id}`} className='search-list-item'>
         {ticker}
         {name}
-      </div>
+      </Link>
     );
   } 
 
@@ -87,10 +89,14 @@ class Search extends Component {
   handleFocus() {
     this.setState({isFocused: true});
   }
-  handleBlur() {
+  handleBlur(e) {
+    if (e.relatedTarget && e.relatedTarget.className === 'search-list-item') return;
     this.setState({isFocused: false});
   }
 }
+
+
+
 
 
 const msp = state => ({

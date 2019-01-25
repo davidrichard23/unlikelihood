@@ -20,7 +20,7 @@
    font-family: 'PT Sans', sans-serif;
  }
 
- h1, h2, h3, h4 {
+ h1, h2, h3, h4, p {
    padding: 0;
    margin: 0;
  }
@@ -29,6 +29,14 @@
    text-decoration: none;
    margin: 0;
    padding: 0;
+   color: inherit;
+ }
+
+ a:visited {
+   color: inherit;
+ }
+
+ .flex-centered {
    display: flex;
    align-items: center;
    justify-content: center;
@@ -152,30 +160,6 @@ input[type=text]:focus, input[type=password]:focus {
   margin-left: 36px;
 }
 
-
-
-.dashboard-page .wrapper {
-  padding-top: 64px;
-}
-  
-.dashboard-page .nav {
-  height: 64px;
-}
-
-.dashboard-page .nav .inner {
-  width: 1024px;
-}
-
-.dashboard-page .nav .btn {
-  color: #171718;
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.dashboard-page .nav .right {
-  flex: 0 0 125px;
-}
-
 .search {
   height: 36px;
 }
@@ -226,7 +210,6 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 
-
 .account-dropdown {
   position: absolute;
   right: 0;
@@ -241,6 +224,72 @@ input[type=text]:focus, input[type=password]:focus {
   text-align: left;
 }
 
+
+
+
+.dashboard-page .wrapper, .asset-page .wrapper {
+  padding-top: 64px;
+}
+  
+.dashboard-page .nav, .asset-page .nav{
+  height: 64px;
+}
+
+.dashboard-page .nav .inner, .asset-page .nav .inner{
+  width: 1024px;
+}
+
+.dashboard-page .nav .btn, .asset-page .nav .btn{
+  color: #171718;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.dashboard-page .nav .right, .asset-page .nav .right{
+  flex: 0 0 125px;
+}
+
+
+
+
+.asset-page .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.asset-page .wrapper .inner {
+  width: 1024px;
+  padding-top: 36px;
+}
+
+
+
+
+
+.asset-chart-container h1 {
+  font-size: 36px;
+  font-weight: 600;
+}
+.asset-chart-container h2 {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.asset-chart-container p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.asset-chart {
+  display: inline-block;
+  margin-top: 30px;
+  background-image: linear-gradient(to right, black 20%, rgba(255,255,255,0) 0%);
+  background-position: bottom;
+  background-size: 5px 1px;
+  background-repeat: repeat-x;
+  width: 676px;
+}
 
 
 

@@ -6,6 +6,7 @@ import DashboardContainer from './dashboard/dashboard_container';
 import Splash from './splash/splash';
 import LoginFormContainer from './user/login_form_container';
 import SignupFormContainer from './user/signup_form_container';
+import AssetContainer from './assets/asset_container';
 
 const App = (props) => {
   const RootComponent = props.currentUser.id ? DashboardContainer : Splash;
@@ -15,6 +16,7 @@ const App = (props) => {
       <Route exact path="/" component={RootComponent} />
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
+      <Route path="/assets/:assetId" component={AssetContainer} />
     </div>
   )
 }
