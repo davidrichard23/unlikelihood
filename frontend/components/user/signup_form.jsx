@@ -73,7 +73,7 @@ export default class SignupForm extends React.Component {
               onChange={this.handleInput('balance')}
               />
 
-            <input className='rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
+            <input className='btn rect-btn' type="submit" value={this.props.formType === 'login' ? 'Login' : 'Signup'} />
 
             <p>Already have an account? <Link className='link' to='/login'>Log In</Link></p>
 
