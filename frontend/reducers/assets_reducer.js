@@ -5,8 +5,10 @@ export default (state={}, action) => {
   Object.freeze(state);
 
   switch (action.type) {
-    case RECEIVE_ASSETS:
-      return action.assets;
+    case RECEIVE_ASSETS: {
+      const newState = merge({}, state, action.assets);
+      return newState;
+    }
     case RECEIVE_ASSET: {
       const newState = merge({}, state);
       newState[action.asset.id] = action.asset;

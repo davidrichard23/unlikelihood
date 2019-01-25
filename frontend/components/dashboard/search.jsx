@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchAssets } from '../../actions/assets_actions';
+import { searchAssets } from '../../actions/search_actions';
 import { highlightMatch } from '../../util/text_util';
 
 class Search extends Component {
@@ -82,7 +82,7 @@ class Search extends Component {
       searchText: val,
       showDropdown: val.length > 0,
     }, () => {
-      this.props.fetchAssets(this.state.searchText);
+      this.props.searchAssets(this.state.searchText);
     });
   }
 
@@ -99,12 +99,16 @@ class Search extends Component {
 
 
 
-const msp = state => ({
-  assets: Object.values(state.entities.assets),
-});
+const msp = state => {
+  const assets = state.searchIds.map(id => state.entities.assets[id])
+
+  return {
+    assets
+  }
+};
 
 const mdp = dispatch => ({
-  fetchAssets: searchText => dispatch(fetchAssets(searchText)),
+  searchAssets: searchText => dispatch(searchAssets(searchText)),
 });
 
 export default connect(msp, mdp)(Search);

@@ -8,7 +8,7 @@ const msp = (state, ownProps) => {
   const chartData = {};
   let chartHigh = -Infinity;
   let chartLow = Infinity;
-console.log(state.entities.chartData)
+
   state.entities.chartData.forEach(d => {
     if (d.average !== -1) {
       chartData[d.label] = d.average;

@@ -11,8 +11,8 @@ const receiveChartData = chartData => ({
 
 export const fetchChartData = ticker => dispatch => {
   return IexApiUtil.fetchChartData(ticker)
-    .then(data => {
-      return dispatch(receiveChartData(data));
-      // return dispatch(receiveChartData(data['Time Series (5min)']));
-    });
+  .then(data => {
+    return dispatch(receiveChartData(data));
+    // return dispatch(receiveChartData(data['Time Series (5min)']));
+  });
 };
