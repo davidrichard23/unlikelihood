@@ -84,19 +84,7 @@ input[type=text]:focus, input[type=password]:focus {
   font-weight: 400;
 }
 
-.highlight {
-  display: flex;
-  align-items: center;
-  font-size: 11px;
-  color: rgb(33, 206, 153);
-  background-color: rgb(231, 248, 243);
-  padding: 0 7px;
-  margin-left: 6px;
-  height: 24px;
-  border-radius: 2px;
-}
-
-.rect-btn {
+.btn.rect-btn {
   font-size: 13px;
   background-color: rgb(33, 206, 153);
   height: 48px;
@@ -107,15 +95,15 @@ input[type=text]:focus, input[type=password]:focus {
   box-sizing: border-box;
 }
 
-.round-btn {
+.btn.round-btn {
   font-size: 17px;
   font-weight: 700;
   background-color: rgb(33, 206, 153);
-  height: 48px;
-  padding: 0 24px;
+  padding: 12px 24px;
   border-radius: 24px;
   color: white;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .row {
@@ -124,6 +112,18 @@ input[type=text]:focus, input[type=password]:focus {
 
 .green-text {
   color: rgb(33, 206, 153);
+}
+
+.highlight {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: rgb(33, 206, 153);
+  background-color: rgb(231, 248, 243);
+  padding: 0 7px;
+  margin-left: 6px;
+  height: 24px;
+  border-radius: 2px;
 }
 
 
@@ -193,16 +193,27 @@ input[type=text]:focus, input[type=password]:focus {
 } 
 
 .search-dropdown {
-  padding: 0 20px;
+  /* padding: 0 20px; */
 } 
 
 
+
+.search-list-header {
+  color: rgb(180,180,180);
+  font-weight: 700;
+  padding: 10px 20px;
+} 
 
 .search-list-item {
   display: flex;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
+  padding: 5px 20px;
+}
+
+.search-list-item:hover {
+  background-color: rgba(0,0,0,0.03);
 }
 
 .search-list-item > *:first-child {

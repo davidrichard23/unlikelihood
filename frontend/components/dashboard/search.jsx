@@ -48,7 +48,7 @@ class Search extends Component {
     return (
       <div className="search-dropdown">
         {assets.length > 0 && 
-          <p style={{ color: 'rgb(180,180,180)', fontWeight: 700}}>
+          <p className='search-list-header'>
             Stocks
           </p>
         }
