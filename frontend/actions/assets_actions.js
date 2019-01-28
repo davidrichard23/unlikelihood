@@ -15,6 +15,7 @@ const receiveAsset = asset => ({
 
 
 export const fetchAssets = (query) => dispatch => {
+  console.log(query)
   return AssetsApiUtil.fetchAssets(query)
   .then(assets => dispatch(receiveAssets(assets)));
 };

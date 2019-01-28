@@ -17,6 +17,7 @@ export default class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchPortfolioActions();
+    console.log(this.props.currentUser)
     this.props.fetchAssets(this.props.currentUser.watchedAssetIds)
     .then(() => {
       const tickers = this.props.watchedAssets.map(asset => asset.ticker);
