@@ -84,11 +84,10 @@ input[type=text]:focus, input[type=password]:focus {
 .btn.rect-btn {
   font-size: 13px;
   background-color: rgb(33, 206, 153);
-  height: 48px;
-  padding: 0 48px;
+  /* height: 48px; */
+  padding: 16px 48px;
   border-radius: 4px;
   color: white;
-  width: 140px;
   box-sizing: border-box;
 }
 
@@ -101,6 +100,18 @@ input[type=text]:focus, input[type=password]:focus {
   color: white;
   box-sizing: border-box;
   text-align: center;
+}
+
+.btn.outline-btn {
+  font-size: 13px;
+  font-weight: 700;
+  background-color: transparent;
+  border: 1px solid rgb(33, 206, 153);
+  padding: 15px 48px;
+  border-radius: 4px;
+  color: rgb(33, 206, 153);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .row {
@@ -149,6 +160,19 @@ input[type=text]:focus, input[type=password]:focus {
   justify-content: space-between;
   align-items: center;
   position: relative;
+}
+
+
+
+
+.main-content {
+  width: 676px;
+}
+
+.sidebar {
+  width: 275px;
+      box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
+  border-radius: 2px;
 }
 
 
@@ -263,19 +287,46 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 
-.asset-page .wrapper {
+
+.dashboard-page .wrapper, .asset-page .wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
-.asset-page .wrapper .inner {
+.dashboard-page .wrapper .inner, .asset-page .wrapper .inner {
   width: 1024px;
   padding-top: 36px;
+  display: flex;
+  justify-content: space-between;
 }
-.asset-page .wrapper .inner .left {
-  width: 676px;
+
+
+
+.watchlist-heading {  
+  padding: 15px 24px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
+.watchlist-heading h2 {  
+  font-size: 16px;
+}
+.watchlist-item:hover {
+  background-color: #fafafa;
+}
+.watchlist-item h3 {  
+  font-size: 14px;
+}
+.watchlist-item p {  
+  font-size: 16px;
+}
+.watchlist-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 24px;
+}
+
+
+
 
 .time-range-container {
   margin: 24px 0 12px 0;
@@ -287,8 +338,11 @@ input[type=text]:focus, input[type=password]:focus {
   padding: 0 0 12px 0;
   margin: 0 12px;
 }
-.time-range-container .btn.selected {
+.time-range-container .btn.selected.green {
   border-bottom: 2px solid rgb(33, 206, 153);
+}
+.time-range-container .btn.selected.red {
+  border-bottom: 2px solid rgb(255, 99, 64);
 }
 
 
@@ -329,11 +383,13 @@ input[type=text]:focus, input[type=password]:focus {
 .asset-chart {
   display: inline-block;
   margin-top: 30px;
+  width: 676px;
+}
+#chart {
   background-image: linear-gradient(to right, black 20%, rgba(255,255,255,0) 0%);
   background-position: bottom;
   background-size: 5px 1px;
   background-repeat: repeat-x;
-  width: 676px;
 }
 
 

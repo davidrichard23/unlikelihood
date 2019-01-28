@@ -1,8 +1,8 @@
-export const fetchAssets = searchText => {
+export const fetchAssets = query => {
   return $.ajax({
     method: 'GET',
     url: '/api/assets',
-    data: {text: searchText}
+    data: {query: query}
   });
 };
 

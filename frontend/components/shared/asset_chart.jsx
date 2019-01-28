@@ -24,7 +24,7 @@ export default class AssetChart extends Component {
       isShowingTooltip: false,
       tooltipLeft: 30,
       currentDataIndex: 0,
-      color: GREEN,
+      selectedTimeRange: '1D',
     };
 
     this.handleMouseHover = this.handleMouseHover.bind(this);
@@ -32,47 +32,61 @@ export default class AssetChart extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
+
     const node = ReactDOM.findDOMNode(this);
     this.chart = node.querySelector('#chart');
     this.forceUpdate();
   }
   
   componentDidUpdate(prevProps) {
-    const prevChartData = Object.keys(prevProps.chartData);
-    const chartData = Object.keys(this.props.chartData);
-    if (prevChartData.length !== chartData.length) {
-      this.setState({currentDataIndex: chartData.length - 1});
+    
+    if (prevProps.asset.ticker !== this.props.asset.ticker) {
+      this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
+    }
+
+    if (this.props.chartData && prevProps.chartData !== this.props.chartData) {
+      this.setState({currentDataIndex: Object.keys(this.props.chartData.data).length - 1});
     }
   }
   
   render() {
-    const { chartData, chartHigh, chartLow, range } = this.props;
-    
     return (
       <div className="asset-chart-container">
-        {this.Header()}
-
-        <div className='asset-chart' onMouseLeave={this.handleMouseLeave}>
-          {this.Tooltip()}
-          <div id="chart">
-            <AssetLineChart 
-              chartData={chartData} 
-              chartHigh={chartHigh} 
-              chartLow={chartLow} 
-              handleMouseHover={this.handleMouseHover} 
-              color={this.state.color}
-              range={range}
-              />
-          </div>
-        </div>
+        {this.Chart()}
       </div>
     );
   }
   
+  Chart() {
+    const { chartData, color } = this.props;
+
+    return (
+      <div>
+        { this.Header() }
+
+        <div className='asset-chart'>
+          { this.Tooltip() }
+          <div id="chart" onMouseLeave={this.handleMouseLeave}>
+            <AssetLineChart
+              chartData={chartData}
+              handleMouseHover={this.handleMouseHover}
+              color={color}
+              range={this.state.selectedTimeRange}
+              />
+            </div >
+        { this.TimeRange() }
+        </div >
+      </div>
+    )
+  }
   
   Header() {
     const { asset, chartData } = this.props;
-    const chartValues = Object.values(chartData);
+
+    if (!chartData) return null
+
+    const chartValues = Object.values(chartData.data);
     
     let startPrice = chartValues[0] || 0;
     let currentPrice = chartValues[this.state.currentDataIndex] || 0;
@@ -106,7 +120,7 @@ export default class AssetChart extends Component {
     if (!this.chart || !this.state.isShowingTooltip) return null
     
     const { top, bottom, left, right, width, height } = this.chart.getBoundingClientRect();
-    const label = Object.keys(this.props.chartData)[this.state.currentDataIndex] + ' ET';
+    const label = Object.keys(this.props.chartData.data)[this.state.currentDataIndex] + ' ET';
     
     return (
       <div>
@@ -131,6 +145,21 @@ export default class AssetChart extends Component {
     );
   }
 
+  TimeRange() {
+    const { selectedTimeRange } = this.state;
+    const selectedClass = ' selected ' + (this.props.color === GREEN ? 'green' : 'red')
+
+    return (
+      <div className='time-range-container'>
+        <button className={'btn' + (selectedTimeRange === '1D' ? selectedClass : '')} style={{ marginLeft: 0 }} onClick={this.changeTimeRange('1D')}>1D</button>
+        <button className={'btn' + (selectedTimeRange === '1M' ? selectedClass : '')} onClick={this.changeTimeRange('1M')}>1M</button>
+        <button className={'btn' + (selectedTimeRange === '3M' ? selectedClass : '')} onClick={this.changeTimeRange('3M')}>3M</button>
+        <button className={'btn' + (selectedTimeRange === '1Y' ? selectedClass : '')} onClick={this.changeTimeRange('1Y')}>1Y</button>
+        <button className={'btn' + (selectedTimeRange === '5Y' ? selectedClass : '')} onClick={this.changeTimeRange('5Y')}>5Y</button>
+      </div>
+    );
+  }
+
   
   handleMouseHover(e, el) {
     if (!el[0]) return;
@@ -146,8 +175,15 @@ export default class AssetChart extends Component {
 
     this.setState({ 
       isShowingTooltip: false,
-      currentDataIndex: Object.keys(this.props.chartData).length - 1 
+      currentDataIndex: Object.keys(this.props.chartData.data).length - 1 
     });
+  }
+
+  changeTimeRange(range) {
+    return () => {
+      this.setState({ selectedTimeRange: range });
+      this.props.fetchChartData(this.props.asset.ticker, range);
+    }
   }
 }
 
@@ -167,27 +203,32 @@ class AssetLineChart extends Component {
 
   render() {
     
-    let pointCount = this.findRangePointCount(this.props.range)
-    const adjustedWidth = CHART_WIDTH / pointCount * Object.keys(this.props.chartData).length;
+    const { chartData, handleMouseHover, color } = this.props;
+
+    if (!chartData) return null
+    
+    const actualPointCount = Object.keys(chartData.data).length;
+    const maxPointCount = this.props.range === '1D' ? 78 : actualPointCount
+    const adjustedWidth = CHART_WIDTH / maxPointCount * actualPointCount;
 
     return (
       <LineChart
         width={adjustedWidth}
         height={196}
-        data={this.props.chartData}
-        min={this.props.chartLow}
-        max={this.props.chartHigh + this.props.chartHigh * 0.002}
+        data={chartData.data}
+        min={chartData.low}
+        max={chartData.high + chartData.high * 0.002}
         curve={false}
         dataset={{
           pointRadius: 0,
-          borderColor: this.props.color,
+          borderColor: color,
           pointHoverRadius: 6,
-          pointHoverBackgroundColor: this.props.color,
+          pointHoverBackgroundColor: color,
           pointBorderColor: 'rgb(255,255,255)',
           pointHoverBorderColor: 'rgb(255,255,255)',
         }}
         library={{
-          onHover: this.props.handleMouseHover
+          onHover: handleMouseHover
         }}
       />
     );
@@ -199,11 +240,11 @@ class AssetLineChart extends Component {
       case '1D':
         return 78;
       case '1M':
-        return 21;
+        return 28;
       case '3M':
-        return 62;
+        return 70;
       case '1Y':
-        return 252;
+        return 260;
       case '5Y':
         return 1258;
     }

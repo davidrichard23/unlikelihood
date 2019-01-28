@@ -14,8 +14,8 @@ const receiveAsset = asset => ({
 });
 
 
-export const fetchAssets = (searchText='') => dispatch => {
-  return AssetsApiUtil.fetchAssets(searchText)
+export const fetchAssets = (query) => dispatch => {
+  return AssetsApiUtil.fetchAssets(query)
   .then(assets => dispatch(receiveAssets(assets)));
 };
 

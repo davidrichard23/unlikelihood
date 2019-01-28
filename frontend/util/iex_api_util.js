@@ -13,3 +13,9 @@ export const fetchChartData = (ticker, range) => {
     // url: baseUrl + `/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&apikey=QOKJY6SXNZOUY0X8`,
   });
 };
+export const fetchMultipleChartData = (tickers, range) => {
+  return $.ajax({
+    method: 'GET',
+    url: baseUrl + `/stock/market/batch?types=chart&symbols=${tickers}&range=${range}&chartInterval=5`,
+  });
+};

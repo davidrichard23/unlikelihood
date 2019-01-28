@@ -2,20 +2,11 @@ import { connect } from 'react-redux';
 import Asset from './asset';
 import { fetchAsset } from '../../actions/assets_actions';
 import { fetchChartData } from '../../actions/chart_data_actions';
+import { addAssetToWatchlist, removeAssetFromWatchlist } from '../../actions/user_actions';
 
 const msp = (state, ownProps) => {
 
-  const chartData = {};
-  let chartHigh = -Infinity;
-  let chartLow = Infinity;
-
-  state.entities.chartData.forEach(d => {
-    if (d.close && d.close !== -1) {
-      chartData[d.label] = d.close;
-      if (d.high > chartHigh) chartHigh = d.high;
-      if (d.low < chartLow) chartLow = d.low;
-    }
-  });
+  
 
   // alphaadvantage.co
   // Object.keys(state.entities.chartData).forEach(key => {
@@ -26,16 +17,17 @@ const msp = (state, ownProps) => {
   // });
 
   return {
+    user: state.entities.user,
     asset: state.entities.assets[ownProps.match.params.assetId],
-    chartData: chartData,
-    chartHigh: chartHigh,
-    chartLow: chartLow,
+    chartData: state.entities.chartData,
   };
 };
 
 const mdp = dispatch => ({
   fetchAsset: id => dispatch(fetchAsset(id)),
-  fetchChartData: (ticker, range) => dispatch(fetchChartData(ticker, range))
+  fetchChartData: (ticker, range) => dispatch(fetchChartData(ticker, range)),
+  addAssetToWatchlist: id => dispatch(addAssetToWatchlist(id)),
+  removeAssetFromWatchlist: id => dispatch(removeAssetFromWatchlist(id)),
 });
 
 export default connect(msp, mdp)(Asset);
