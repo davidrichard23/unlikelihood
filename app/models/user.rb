@@ -7,6 +7,7 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   has_many :watched_assets
+  has_many :portfolio_actions
 
   def self.generate_session_token
     SecureRandom.urlsafe_base64

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :assets, only: [:index, :show]
     resources :watched_assets, only: [:index, :create, :destroy]
+    resources :portfolio_actions, only: [:index, :create]
   end
 
   root 'static_pages#root'
