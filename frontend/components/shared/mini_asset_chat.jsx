@@ -21,7 +21,8 @@ export default class MiniAssetChart extends Component {
 
     const { chartData, color } = this.props;
     const actualPointCount = Object.keys(this.props.chartData).length;
-    const adjustedWidth = 60 / 10 * actualPointCount;
+    const maxPointCount = actualPointCount < 60 ? 78 : actualPointCount
+    const adjustedWidth = 60 / actualPointCount * actualPointCount;
 
     return (
       <div>
@@ -30,7 +31,7 @@ export default class MiniAssetChart extends Component {
           height={16}
           data={chartData.data}
           min={chartData.low}
-          max={chartData.high + chartData.high * 0.002}
+          max={chartData.high}
           curve={false}
           dataset={{
             pointRadius: 0,

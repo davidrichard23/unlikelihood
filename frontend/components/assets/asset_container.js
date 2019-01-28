@@ -17,7 +17,7 @@ const msp = (state, ownProps) => {
   // });
 
   return {
-    user: state.entities.user,
+    currentUser: state.entities.user,
     asset: state.entities.assets[ownProps.match.params.assetId],
     chartData: state.entities.chartData,
   };

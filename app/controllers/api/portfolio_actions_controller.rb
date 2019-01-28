@@ -1,4 +1,4 @@
-class PortfolioActionsController < ApplicationController
+class Api::PortfolioActionsController < ApplicationController
   def index
     @portfolio_actions = current_user.portfolio_actions
     render json: @portfolio_actions

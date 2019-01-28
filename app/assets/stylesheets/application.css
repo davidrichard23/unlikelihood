@@ -77,6 +77,16 @@ input[type=text]:focus, input[type=password]:focus {
 .btn:hover {
   color: rgb(33, 206, 153);
 }
+
+.btn.selected.green {
+  color: rgb(33, 206, 153);
+  border-bottom: 2px solid rgb(33, 206, 153);
+}
+.btn.selected.red {
+  color: rgb(255, 99, 64);
+  border-bottom: 2px solid rgb(255, 99, 64);
+}
+
 .btn.thin {
   font-weight: 400;
 }
@@ -107,11 +117,11 @@ input[type=text]:focus, input[type=password]:focus {
   font-weight: 700;
   background-color: transparent;
   border: 1px solid rgb(33, 206, 153);
-  padding: 15px 48px;
+  padding: 15px 15px;
   border-radius: 4px;
   color: rgb(33, 206, 153);
   box-sizing: border-box;
-  width: 100%;
+  
 }
 
 .row {
@@ -132,6 +142,10 @@ input[type=text]:focus, input[type=password]:focus {
   margin-left: 6px;
   height: 24px;
   border-radius: 2px;
+}
+
+.grey-border-bottom {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 
@@ -171,8 +185,6 @@ input[type=text]:focus, input[type=password]:focus {
 
 .sidebar {
   width: 275px;
-      box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
-  border-radius: 2px;
 }
 
 
@@ -302,6 +314,11 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 
+
+.watchlist, .order-form {
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
+  border-radius: 2px;
+}
 .watchlist-heading {  
   padding: 15px 24px;
   border-top: 1px solid rgba(0,0,0,0.05);
@@ -338,12 +355,8 @@ input[type=text]:focus, input[type=password]:focus {
   padding: 0 0 12px 0;
   margin: 0 12px;
 }
-.time-range-container .btn.selected.green {
-  border-bottom: 2px solid rgb(33, 206, 153);
-}
-.time-range-container .btn.selected.red {
-  border-bottom: 2px solid rgb(255, 99, 64);
-}
+
+
 
 
 
@@ -390,6 +403,55 @@ input[type=text]:focus, input[type=password]:focus {
   background-position: bottom;
   background-size: 5px 1px;
   background-repeat: repeat-x;
+}
+
+
+
+/* .order-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+.order-form .heading {
+  padding: 4px 24px 0 24px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  margin-bottom: 12px;
+}
+.order-form .heading .btn {
+  font-size: 16px;
+  padding: 14px 0;
+  margin-right:12px;
+}
+.order-form .row {
+  justify-content: space-between;
+  padding: 0 24px;
+  align-items: center;
+  height: 48px;
+}
+.order-form p {
+  font-size: 13px;
+  padding-right: 12px;
+  font-weight: 700;
+}
+.order-form label {
+  font-size: 13px;
+}
+.order-form input[type=text] {
+  height: 36px;
+  width: 82px;
+  font-size: 13px;
+  text-align: right;
+  padding: 0 13px;
+}
+.order-form .review-button-container {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.asset-page .sidebar .outline-btn {
+  margin: 24px;
+  width: calc(100% - 48px);
 }
 
 

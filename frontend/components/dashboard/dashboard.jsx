@@ -16,6 +16,7 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchPortfolioActions();
     this.props.fetchAssets(this.props.currentUser.watchedAssetIds)
     .then(() => {
       const tickers = this.props.watchedAssets.map(asset => asset.ticker);
@@ -82,7 +83,7 @@ export default class Dashboard extends Component {
             color={color}
           />
         </div>
-        <p>{currentprice}</p>
+        <p>{currentprice.toFixed(2)}</p>
       </Link>
     );
   }

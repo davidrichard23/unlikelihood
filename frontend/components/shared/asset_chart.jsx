@@ -208,7 +208,8 @@ class AssetLineChart extends Component {
     if (!chartData) return null
     
     const actualPointCount = Object.keys(chartData.data).length;
-    const maxPointCount = this.props.range === '1D' ? 78 : actualPointCount
+    console.log(actualPointCount)
+    const maxPointCount = this.props.range === '1D' && actualPointCount < 60 ? 78 : actualPointCount
     const adjustedWidth = CHART_WIDTH / maxPointCount * actualPointCount;
 
     return (
