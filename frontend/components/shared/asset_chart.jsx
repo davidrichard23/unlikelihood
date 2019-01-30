@@ -98,8 +98,12 @@ export default class AssetChart extends Component {
     }
     else {
       priceDiff = '+$' + priceDiff;
-      priceDiff += ` (${((currentPrice - startPrice) / startPrice * 100).toFixed(2)}%)`;
+      if (startPrice > 0) 
+        priceDiff += ` (${((currentPrice - startPrice) / startPrice * 100).toFixed(2)}%)`;
+      else
+        priceDiff += ` (0.00%)`;
     }
+
     
     if (!this.state.isShowingTooltip) 
       priceDiff = <p>{priceDiff} <span style={{ color: 'rgba(0,0,0,0.2)' }}> Today</span></p>;
