@@ -7,7 +7,8 @@ export default (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_CHART_DATA: {
       const newState = merge({}, state);
-      newState[action.ticker] = action.chartData;
+      if (!newState[action.ticker]) newState[action.ticker] = {};
+      newState[action.ticker][action.range] = action.chartData;
       return newState;
     }
     case RECEIVE_MULTIPLE_CHART_DATA: {

@@ -4,10 +4,11 @@ export const RECEIVE_CHART_DATA = 'RECEIVE_CHART_DATA';
 export const RECEIVE_MULTIPLE_CHART_DATA = 'RECEIVE_MULTIPLE_CHART_DATA';
 
 
-const receiveChartData = (chartData, ticker) => ({
+const receiveChartData = (chartData, ticker, range) => ({
   type: RECEIVE_CHART_DATA,
   chartData,
-  ticker
+  ticker,
+  range
 });
 
 const receiveMultipleChartData = chartData => ({
@@ -19,7 +20,7 @@ const receiveMultipleChartData = chartData => ({
 export const fetchChartData = (ticker, range) => dispatch => {
   return IexApiUtil.fetchChartData(ticker, range)
   .then(data => {
-    return dispatch(receiveChartData(formatData(data), ticker));
+    return dispatch(receiveChartData(formatData(data), ticker, range));
   });
 };
 
@@ -28,10 +29,11 @@ export const fetchMultipleChartData = (tickers, range) => dispatch => {
   return IexApiUtil.fetchMultipleChartData(tickers, range)
   .then(data => {
     const chartData = {};
+    console.log(data)
     Object.keys(data).forEach(key => {
-      chartData[key] = formatData(data[key].chart);
+      chartData[key] = {[range]: formatData(data[key].chart)};
     });
-    return dispatch(receiveMultipleChartData(chartData));
+    return dispatch(receiveMultipleChartData(chartData, range));
   });
 };
 
@@ -48,10 +50,15 @@ const formatData = data => {
   };
 
   data.forEach(d => {
+    // some dates are separated by dashes and some are not separated
+    const date = d.date.split('-').join('');
+    const minute = d.minute || '16:00:00';
+    let dateStr = date.slice(0, 4) + '/' + date.slice(4, 6) + '/' + date.slice(6) + ' ' + minute;
+
     if (d.close && d.close !== -1) {
-      chartData.data[d.label] = d.close;
-      if (d.high > chartData.high) chartData.high = d.high;
-      if (d.low < chartData.low) chartData.low = d.low;
+      chartData.data[dateStr] = d.close;
+      if (d.close > chartData.high) chartData.high = d.close;
+      if (d.close < chartData.low) chartData.low = d.close;
     }
   });
 

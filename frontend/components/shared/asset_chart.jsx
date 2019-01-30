@@ -32,7 +32,7 @@ export default class AssetChart extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
+    // this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
 
     const node = ReactDOM.findDOMNode(this);
     this.chart = node.querySelector('#chart');
@@ -41,12 +41,12 @@ export default class AssetChart extends Component {
   
   componentDidUpdate(prevProps) {
     
-    if (prevProps.asset.ticker !== this.props.asset.ticker) {
-      this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
-    }
+    // if (prevProps.asset.ticker !== this.props.asset.ticker) {
+      // this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
+    // }
 
-    if (this.props.chartData && prevProps.chartData !== this.props.chartData) {
-      this.setState({currentDataIndex: Object.keys(this.props.chartData.data).length - 1});
+    if (prevProps.chartData && this.props.chartData && this.props.chartData[this.state.selectedTimeRange] && prevProps.chartData[this.state.selectedTimeRange] !== this.props.chartData[this.state.selectedTimeRange]) {
+      this.setState({currentDataIndex: Object.keys(this.props.chartData[this.state.selectedTimeRange].data).length - 1});
     }
   }
   
@@ -84,9 +84,9 @@ export default class AssetChart extends Component {
   Header() {
     const { asset, chartData } = this.props;
 
-    if (!chartData) return null
+    if (!chartData || !chartData[this.state.selectedTimeRange]) return null
 
-    const chartValues = Object.values(chartData.data);
+    const chartValues = Object.values(chartData[this.state.selectedTimeRange].data) || [];
     
     let startPrice = chartValues[0] || 0;
     let currentPrice = chartValues[this.state.currentDataIndex] || 0;
@@ -118,9 +118,9 @@ export default class AssetChart extends Component {
   
   Tooltip() {
     if (!this.chart || !this.state.isShowingTooltip) return null
-    
+
     const { top, bottom, left, right, width, height } = this.chart.getBoundingClientRect();
-    const label = Object.keys(this.props.chartData.data)[this.state.currentDataIndex] + ' ET';
+    const label = Object.keys(this.props.chartData[this.state.selectedTimeRange].data)[this.state.currentDataIndex] + ' ET';
     
     return (
       <div>
@@ -175,14 +175,14 @@ export default class AssetChart extends Component {
 
     this.setState({ 
       isShowingTooltip: false,
-      currentDataIndex: Object.keys(this.props.chartData.data).length - 1 
+      currentDataIndex: Object.keys(this.props.chartData[this.state.selectedTimeRange].data).length - 1 
     });
   }
 
   changeTimeRange(range) {
     return () => {
       this.setState({ selectedTimeRange: range });
-      this.props.fetchChartData(this.props.asset.ticker, range);
+      this.props.onRangeChange(range);
     }
   }
 }
@@ -203,22 +203,21 @@ class AssetLineChart extends Component {
 
   render() {
     
-    const { chartData, handleMouseHover, color } = this.props;
+    const { chartData, handleMouseHover, color, range } = this.props;
 
-    if (!chartData) return null
+    if (!chartData || !chartData[range]) return null
     
-    const actualPointCount = Object.keys(chartData.data).length;
-    console.log(actualPointCount)
-    const maxPointCount = this.props.range === '1D' && actualPointCount < 60 ? 78 : actualPointCount
+    const actualPointCount = Object.keys(chartData[range].data).length;
+    const maxPointCount = this.props.range === '1D' && actualPointCount < 40 ? 78 : actualPointCount
     const adjustedWidth = CHART_WIDTH / maxPointCount * actualPointCount;
 
     return (
       <LineChart
         width={adjustedWidth}
         height={196}
-        data={chartData.data}
-        min={chartData.low}
-        max={chartData.high + chartData.high * 0.002}
+        data={chartData[range].data}
+        min={chartData[range].low}
+        max={chartData[range].high + chartData[range].high * 0.002}
         curve={false}
         dataset={{
           pointRadius: 0,
@@ -233,21 +232,5 @@ class AssetLineChart extends Component {
         }}
       />
     );
-  }
-
-
-  findRangePointCount(range) {
-    switch (range) {
-      case '1D':
-        return 78;
-      case '1M':
-        return 28;
-      case '3M':
-        return 70;
-      case '1Y':
-        return 260;
-      case '5Y':
-        return 1258;
-    }
   }
 }

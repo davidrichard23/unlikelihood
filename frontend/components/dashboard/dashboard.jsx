@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Nav from './nav_bar';
-import MiniAssetChart from '../shared/mini_asset_chat';
+import AssetChart from '../shared/asset_chart';
+import MiniAssetChart from '../shared/mini_asset_chart';
 import { Link } from 'react-router-dom';
 
 const GREEN = 'rgb(33, 206, 153)';
@@ -13,20 +14,26 @@ export default class Dashboard extends Component {
     super(props);
 
     this.WatchedItem = this.WatchedItem.bind(this);
+    this.handleTimeRangeChange = this.handleTimeRangeChange.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchPortfolioActions();
-    console.log(this.props.currentUser)
-    this.props.fetchAssets(this.props.currentUser.watchedAssetIds)
+    this.props.fetchPortfolioActions()
     .then(() => {
-      const tickers = this.props.watchedAssets.map(asset => asset.ticker);
-      this.props.fetchMultipleChartData(tickers, '1D');
+      return this.props.fetchAssets([...this.props.ownedAssetIds, ...this.props.currentUser.watchedAssetIds]);
+    })
+    .then(() => {
+      const watchedAssetTickers = this.props.watchedAssets.map(asset => asset.ticker);
+      const ownedAssetTickers = this.props.ownedAssets.map(asset => asset.ticker);
+      return this.props.fetchMultipleChartData([...watchedAssetTickers, ...ownedAssetTickers], '1D');
+    })
+    .then(() => {
+      this.props.fetchPortfolioChartData('1D');
     });
   }
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, portfolioChartData } = this.props;
 
     return (
       <div className='dashboard-page'>
@@ -34,13 +41,12 @@ export default class Dashboard extends Component {
         <div className="wrapper">
           <div className="inner">
             <div className="main-content">
-              {/* <AssetChart
-                asset={asset}
-                chartData={chartData}
-                chartHigh={chartHigh}
-                chartLow={chartLow}
-                range={selectedTimeRange}
-              /> */}
+              <AssetChart
+                asset={{name: `${currentUser.firstName} ${currentUser.lastName}'s Portfolio`}}
+                chartData={portfolioChartData}
+                color={GREEN}
+                onRangeChange={this.handleTimeRangeChange}
+              />
             </div>
             <div className="sidebar">
               {this.Watchlist()}
@@ -53,10 +59,14 @@ export default class Dashboard extends Component {
 
   Watchlist() {
 
-    const { watchedAssets } = this.props
+    const { ownedAssets, watchedAssets } = this.props
 
     return (
       <div className='watchlist'>
+        <div className="watchlist-heading">
+          <h2>Stocks</h2>
+        </div>
+        {ownedAssets.map(this.WatchedItem)}
         <div className="watchlist-heading">
           <h2>Watchlist</h2>
         </div>
@@ -67,9 +77,10 @@ export default class Dashboard extends Component {
 
   WatchedItem(asset) {
     const ticker = asset.ticker.toUpperCase();
-    const chartData = this.props.chartData[ticker];
     
-    if (!chartData) return null;
+    if (!this.props.chartData[ticker]) return null;
+
+    const chartData = this.props.chartData[ticker]['1D'];
 
     const keys = Object.keys(chartData.data);
     const currentprice = chartData.data[keys[keys.length - 1]];
@@ -87,5 +98,13 @@ export default class Dashboard extends Component {
         <p>{currentprice.toFixed(2)}</p>
       </Link>
     );
+  }
+
+  handleTimeRangeChange(newRange) {
+    const ownedAssetTickers = this.props.ownedAssets.map(asset => asset.ticker);
+    this.props.fetchMultipleChartData(ownedAssetTickers, newRange)
+    .then(() => {
+      this.props.fetchPortfolioChartData(newRange);
+    });
   }
 }

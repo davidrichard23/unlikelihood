@@ -407,11 +407,9 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 
-/* .order-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
+.order-form {
+  transition: height 5000ms ease-in-out;
+}
 .order-form .heading {
   padding: 4px 24px 0 24px;
   border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -445,11 +443,24 @@ input[type=text]:focus, input[type=password]:focus {
 }
 .order-form .review-button-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 24px;
 }
+.order-form .review-button-container .btn {
+  width: 100%;
+  margin-bottom: 12px;
+}
 
-.asset-page .sidebar .outline-btn {
+.order-form .review-text {
+  padding: 12px 24px 0 24px;
+}
+.order-form .review-text p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.watchlist-btn {
   margin: 24px;
   width: calc(100% - 48px);
 }

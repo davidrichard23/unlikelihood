@@ -9,6 +9,9 @@ export const REMOVE_ERRORS = 'REMOVE_ERRORS';
 export const RECEIVE_WATCHED_ASSET = 'RECEIVE_WATCHED_ASSET';
 export const REMOVE_WATCHED_ASSET = 'REMOVE_WATCHED_ASSET';
 
+export const ADD_BALANCE = 'ADD_BALANCE';
+export const SUBTRACT_BALANCE = 'SUBTRACT_BALANCE';
+
 
 
 const receiveCurrentUser = user => ({
@@ -37,6 +40,16 @@ const receiveErrors = errors => ({
 
 const removeErrors = () => ({
   type: REMOVE_ERRORS,
+});
+
+export const addBalance = amount => ({
+  type: ADD_BALANCE,
+  amount
+});
+
+export const subtractBalance = amount => ({
+  type: SUBTRACT_BALANCE,
+  amount
 });
 
 

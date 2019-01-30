@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_WATCHED_ASSET, REMOVE_WATCHED_ASSET } from '../actions/user_actions';
+import { RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, RECEIVE_WATCHED_ASSET, REMOVE_WATCHED_ASSET, SUBTRACT_BALANCE, ADD_BALANCE } from '../actions/user_actions';
 
 export default (state={}, action) => {
   Object.freeze(state);
@@ -19,6 +19,16 @@ export default (state={}, action) => {
     case REMOVE_WATCHED_ASSET:{
       const newState = merge({}, state);
       newState.watchedAssetIds = newState.watchedAssetIds.filter(id => id !== action.assetId);
+      return newState;
+    }
+    case ADD_BALANCE:{
+      const newState = merge({}, state);
+      newState.balance += action.amount;
+      return newState;
+    }
+    case SUBTRACT_BALANCE:{
+      const newState = merge({}, state);
+      newState.balance -= action.amount;
       return newState;
     }
     

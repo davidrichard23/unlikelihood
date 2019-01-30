@@ -1,0 +1,1 @@
+json.extract! portfolio_action, :id, :user_id, :asset_id, :action, :shares, :price, :created_at

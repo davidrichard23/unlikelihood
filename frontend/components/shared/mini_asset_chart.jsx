@@ -28,7 +28,7 @@ export default class MiniAssetChart extends Component {
       <div>
         <LineChart
           width={adjustedWidth}
-          height={16}
+          height={25}
           data={chartData.data}
           min={chartData.low}
           max={chartData.high}
