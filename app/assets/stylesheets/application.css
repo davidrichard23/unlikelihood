@@ -260,15 +260,35 @@ input[type=text]:focus, input[type=password]:focus {
 .account-dropdown {
   position: absolute;
   right: 0;
-  top: 72px;
+  top: 64px;
   width: 296px;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
+  background-color: white;
+}
+.account-dropdown header {
+  padding: 24px;
+}
+.account-dropdown header .row {
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.account-dropdown header h3 {
+  font-size: 16px;
+}
+.account-dropdown header p {
+  font-size: 13px;
 }
 
-.account-dropdown button {
+.account-dropdown .btn {
   height: 48px;
+  display: flex;
+  align-items: center;
   width: 100%;
   text-align: left;
+  padding: 0 24px;
+}
+.account-dropdown button:hover {
+  background-color: rgba(0,0,0,0.03);
 }
 
 

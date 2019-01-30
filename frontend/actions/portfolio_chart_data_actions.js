@@ -23,7 +23,6 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
     }
   };
 
-
   const repairedPrices = [];
   let keys = [];
 
@@ -31,8 +30,6 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
   ownedAssets.forEach((asset, i) => {
     const chartData = state.entities.chartData[asset.ticker];
     if (!chartData) return;
-    console.log(range)
-    console.log(chartData)
 
     Object.keys(chartData[range].data).forEach(key => {
       if (!keys.includes(key)) keys.push(key);
@@ -62,7 +59,6 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
       }
       
       const dateKey = new Date(key);
-      // console.log(dateKey)
       const shares = Object.values(portfolioActions[asset.id]).reduce((total, pAction) => {
         const createdAt = new Date(pAction.created_at);
         if (pAction.action === 'buy' && (dateKey >= createdAt || (dateKey.toString() == latestDate.toString() && createdAt >= latestDate))) 
@@ -90,29 +86,5 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
   portfolioChartData[range].open = portfolioChartData[range].data[portfolioChartDataKeys[0]];
   portfolioChartData[range].close = portfolioChartData[range].data[portfolioChartDataKeys[portfolioChartDataKeys.length - 1]];
 
-  console.log(portfolioChartData)
-
   dispatch(receivePortfolioChartData(portfolioChartData));
 };
-
-
-
-
-
-
-
-
-
-
-
-// const timeToDate = time => {
-//   let dateString = time;
-
-//   if (time.includes('AM') || time.includes('PM')) {
-//     if (!time.includes(':')) time = time.split(' ')[0] + ':00 ' + time.split(' ')[1];
-//     const date = new Date();
-//     dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${time}`;
-//   } 
-    
-//   return new Date(dateString);
-// };
