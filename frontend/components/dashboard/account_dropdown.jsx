@@ -29,7 +29,7 @@ const AccountDropdown = ({ isOpen, currentUser, portfolioValue, logout }) => {
 
 const msp = state => ({
   currentUser: state.entities.user,
-  portfolioValue: state.entities.portfolioChartData['1D'].close,
+  portfolioValue: state.entities.portfolioChartData['1D'].close || 0,
 })
 const mdp = dispatch => ({
   logout: () => dispatch(logout())

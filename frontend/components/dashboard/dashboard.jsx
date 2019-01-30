@@ -25,7 +25,8 @@ export default class Dashboard extends Component {
     .then(() => {
       const watchedAssetTickers = this.props.watchedAssets.map(asset => asset.ticker);
       const ownedAssetTickers = this.props.ownedAssets.map(asset => asset.ticker);
-      return this.props.fetchMultipleChartData([...watchedAssetTickers, ...ownedAssetTickers], '1D');
+      if (watchedAssetTickers.length > 0 || ownedAssetTickers.length > 0)
+        return this.props.fetchMultipleChartData([...watchedAssetTickers, ...ownedAssetTickers], '1D');
     })
     .then(() => {
       this.props.fetchPortfolioChartData('1D');
