@@ -28,3 +28,17 @@ You can access the site at https://unlikelihood.herokuapp.com
 1. [IEX](https://iextrading.com)
 
 
+## Features
+
+### Charts
+
+![](./docs/chart.png)
+
+### Buy/Sell and add to watchlist
+
+![](./docs/buy-sell.png)
+
+### Portfolio
+
+![](./docs/porfolio.png)
+
