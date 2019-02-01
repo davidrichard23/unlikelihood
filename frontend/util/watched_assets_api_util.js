@@ -5,17 +5,17 @@ export const fetchWatchedAssets = () => {
   });
 };
 
-export const addAssetToWatchlist = id => {
+export const addAssetToWatchlist = symbol => {
   return $.ajax({
     method: 'POST',
     url: '/api/watched_assets',
-    data: {asset: {asset_id: id}}
+    data: {asset: {asset_symbol: symbol}}
   });
 };
 
-export const removeAssetFromWatchlist = id => {
+export const removeAssetFromWatchlist = symbol => {
   return $.ajax({
     method: 'DELETE',
-    url: '/api/watched_assets/' + id
+    url: '/api/watched_assets/' + symbol
   });
 };

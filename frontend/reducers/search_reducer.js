@@ -6,7 +6,7 @@ export default (state = [], action) => {
 
   switch (action.type) {
     case RECEIVE_SEARCH_ASSETS:
-      return action.assetIds;
+      return action.assetSymbols;
 
     default:
       return state;

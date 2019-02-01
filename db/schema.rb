@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_28_185604) do
+ActiveRecord::Schema.define(version: 2019_01_30_215547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 2019_01_28_185604) do
   end
 
   create_table "portfolio_actions", force: :cascade do |t|
-    t.integer "asset_id", null: false
     t.integer "user_id", null: false
     t.float "shares", null: false
     t.string "action", null: false
     t.float "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "asset_symbol"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 2019_01_28_185604) do
 
   create_table "watched_assets", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "asset_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "asset_symbol"
   end
 
 end

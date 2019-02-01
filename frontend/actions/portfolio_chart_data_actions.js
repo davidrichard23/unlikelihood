@@ -12,7 +12,7 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
   const state = getState();
   const assets = Object.values(state.entities.assets);
   const ownedAssetIds = Object.keys(state.entities.portfolioActions);
-  const ownedAssets = assets.filter(asset => ownedAssetIds.includes(asset.id.toString()));
+  const ownedAssets = assets.filter(asset => ownedAssetIds.includes(asset.symbol.toString()));
   const portfolioActions = state.entities.portfolioActions;
   
   const portfolioChartData = {
@@ -28,7 +28,7 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
 
   // get all the date/time keys so that they can be sorted
   ownedAssets.forEach((asset, i) => {
-    const chartData = state.entities.chartData[asset.ticker];
+    const chartData = state.entities.chartData[asset.symbol];
     if (!chartData) return;
 
     Object.keys(chartData[range].data).forEach(key => {
@@ -43,23 +43,24 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
   keys.forEach(key => portfolioChartData[range].data[key] = 0);
   
   
-  const latestDate = new Date(keys[keys.length - 1]);
   // get price data for each date/time key and account for missing data
+  const latestDate = new Date(keys[keys.length - 1]);
+
   keys.forEach((key, i) => {
     const marketPrices = {};
     const portfolioPrices = {};
     
     ownedAssets.forEach((asset) => {
-      const chartData = state.entities.chartData[asset.ticker];
+      const chartData = state.entities.chartData[asset.symbol];
       if (!chartData) return;
       
       let price = chartData[range].data[key];
       if (!chartData[range].data[key]) {
-        price = repairedPrices[i - 1][asset.ticker];
+        price = repairedPrices[i - 1][asset.symbol];
       }
       
       const dateKey = new Date(key);
-      const shares = Object.values(portfolioActions[asset.id]).reduce((total, pAction) => {
+      const shares = Object.values(portfolioActions[asset.symbol]).reduce((total, pAction) => {
         const createdAt = new Date(pAction.created_at);
         if (pAction.action === 'buy' && (dateKey >= createdAt || (dateKey.toString() == latestDate.toString() && createdAt >= latestDate))) 
           return total + pAction.shares;
@@ -69,8 +70,8 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
         return total;
       }, 0);
 
-      marketPrices[asset.ticker] = price;
-      portfolioPrices[asset.ticker] = price * shares;
+      marketPrices[asset.symbol] = price;
+      portfolioPrices[asset.symbol] = price * shares;
     });
 
     repairedPrices.push(marketPrices);
@@ -86,5 +87,5 @@ export const fetchPortfolioChartData = range => (dispatch, getState) => {
   portfolioChartData[range].open = portfolioChartData[range].data[portfolioChartDataKeys[0]];
   portfolioChartData[range].close = portfolioChartData[range].data[portfolioChartDataKeys[portfolioChartDataKeys.length - 1]];
 
-  dispatch(receivePortfolioChartData(portfolioChartData));
+  return dispatch(receivePortfolioChartData(portfolioChartData));
 };

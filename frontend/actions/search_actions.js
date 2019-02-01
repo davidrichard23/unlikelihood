@@ -3,19 +3,17 @@ import { fetchAssets } from './assets_actions';
 export const RECEIVE_SEARCH_ASSETS = 'RECEIVE_SEARCH_ASSETS';
 
 
-const receiveSearchAssets = assetIds => ({
+const receiveSearchAssets = assetSymbols => ({
   type: RECEIVE_SEARCH_ASSETS,
-  assetIds
+  assetSymbols
 });
 
 
-export const searchAssets = text => dispatch => {
+export const searchAssets = text => (dispatch, getState) => {
   if (text === '') return dispatch(receiveSearchAssets([]));
-  
-  return dispatch(fetchAssets(text))
-  .then(data => {
-    console.log(data)
-    const ids = Object.keys(data.assets);
-    return dispatch(receiveSearchAssets(ids));
-  });
+  const state = getState();
+  const allAssets = Object.values(state.entities.assets);
+  const searchedAssets = allAssets.filter(asset => asset.name.toLowerCase().includes(text.toLowerCase()) || asset.symbol.toLowerCase().includes(text.toLowerCase()));
+  const symbols = searchedAssets.slice(0,5).map(asset => asset.symbol);
+  return dispatch(receiveSearchAssets(symbols));
 };

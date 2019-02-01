@@ -6,16 +6,38 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_CHART_DATA: {
-      const newState = merge({}, state);
-      if (!newState[action.ticker]) newState[action.ticker] = {};
-      newState[action.ticker][action.range] = action.chartData;
+      let newState = merge({}, state);
+      if (!newState[action.symbol]) newState[action.symbol] = {};
+      newState[action.symbol][action.range] = action.chartData;
+
+      if (action.range !== '1D') newState = getLatestPrice(newState, action.symbol, action.range);
       return newState;
     }
     case RECEIVE_MULTIPLE_CHART_DATA: {
-      const newState = merge({}, state, action.chartData);
+      let newState = merge({}, state, action.chartData);
+
+      if (action.range !== '1D') {
+        const symbols = Object.keys(action.chartData);
+        symbols.forEach(symbol => {
+          newState = getLatestPrice(newState, symbol, action.range);
+        });
+      }
       return newState;
     }
     default:
       return state;
   }
 };
+
+
+const getLatestPrice = (newState, symbol, range) => {
+  const oneDay = newState[symbol]['1D'];
+  const dates = Object.keys(oneDay.data);
+  const latestDate = dates[dates.length - 1];
+  const latestData = oneDay.data[latestDate];
+  
+  newState[symbol][range].data[latestDate] = latestData;
+  newState[symbol][range].close = oneDay.close;
+
+  return newState;
+}

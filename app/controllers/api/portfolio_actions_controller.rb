@@ -24,6 +24,6 @@ class Api::PortfolioActionsController < ApplicationController
 
 
   def portfolio_action_params
-    params.require(:portfolio_action).permit(:asset_id, :shares, :action, :price)
+    params.require(:portfolio_action).permit(:asset_symbol, :shares, :action, :price)
   end
 end

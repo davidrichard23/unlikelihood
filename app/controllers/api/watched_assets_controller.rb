@@ -8,19 +8,19 @@ class Api::WatchedAssetsController < ApplicationController
     @watched_asset[:user_id] = current_user[:id]
 
     if @watched_asset.save
-      render json: @watched_asset.asset_id
+      render json: {}
     else
       render json: @watched_asset.errors.full_messages, status: 422
     end
   end
 
   def destroy
-    current_user.watched_assets.where(asset_id: params[:id]).destroy_all
-    render json: params[:id]
+    current_user.watched_assets.where(asset_symbol: params[:id]).destroy_all
+    render json: {}
   end
 
 
   def watched_asset_params
-    params.require(:asset).permit(:asset_id)
+    params.require(:asset).permit(:asset_symbol)
   end
 end

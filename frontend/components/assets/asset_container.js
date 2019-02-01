@@ -1,34 +1,42 @@
 import { connect } from 'react-redux';
 import Asset from './asset';
-import { fetchAsset } from '../../actions/assets_actions';
+import { fetchAssetInfo } from '../../actions/assets_actions';
 import { fetchChartData } from '../../actions/chart_data_actions';
 import { addAssetToWatchlist, removeAssetFromWatchlist } from '../../actions/user_actions';
-import { createPortfolioAction, fetchPortfolioActions } from '../../actions/portfolio_actions';
+import { createPortfolioAction } from '../../actions/portfolio_actions';
 
 const msp = (state, ownProps) => {
 
-  const id = Number(ownProps.match.params.assetId);
-  const portfolioActions = state.entities.portfolioActions[id] || [];
+  const symbol = ownProps.match.params.assetSymbol;
+  const portfolioActions = state.entities.portfolioActions[symbol] || [];
   const ownedShares = portfolioActions.reduce((total, portfolioAction) => {
     if (portfolioAction.action === 'buy') return total + portfolioAction.shares;
     if (portfolioAction.action === 'sell') return total - portfolioAction.shares;
   }, 0);
 
+  const chartData = state.entities.chartData[symbol] || {
+    ['1D']: {
+      high: 10,
+      low: 0,
+      close: 0,
+      data: {},
+    }
+  };
+
   return {
     currentUser: state.entities.user,
-    asset: state.entities.assets[id],
-    chartData: state.entities.chartData,
+    asset: state.entities.assets[symbol],
+    chartData: chartData,
     ownedShares: ownedShares,
   };
 };
 
 const mdp = dispatch => ({
-  fetchAsset: id => dispatch(fetchAsset(id)),
-  fetchChartData: (ticker, range) => dispatch(fetchChartData(ticker, range)),
-  addAssetToWatchlist: id => dispatch(addAssetToWatchlist(id)),
-  removeAssetFromWatchlist: id => dispatch(removeAssetFromWatchlist(id)),
+  fetchAssetInfo: symbol => dispatch(fetchAssetInfo(symbol)),
+  fetchChartData: (symbol, range) => dispatch(fetchChartData(symbol, range)),
+  addAssetToWatchlist: symbol => dispatch(addAssetToWatchlist(symbol)),
+  removeAssetFromWatchlist: symbol => dispatch(removeAssetFromWatchlist(symbol)),
   createPortfolioAction: formData => dispatch(createPortfolioAction(formData)),
-  fetchPortfolioActions: () => dispatch(fetchPortfolioActions()),
 });
 
 export default connect(msp, mdp)(Asset);

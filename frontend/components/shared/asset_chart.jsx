@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 
-import ReactChartkick, { LineChart } from 'react-chartkick'
+import AnimatedNumbers from './animated_numbers.jsx';
+import ReactChartkick, { LineChart } from 'react-chartkick';
 import Chart from 'chart.js';
 
 Chart.defaults.scale.gridLines.display = false;
@@ -32,19 +33,12 @@ export default class AssetChart extends Component {
   }
 
   componentDidMount() {
-    // this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
-
     const node = ReactDOM.findDOMNode(this);
     this.chart = node.querySelector('#chart');
     this.forceUpdate();
   }
   
   componentDidUpdate(prevProps) {
-    
-    // if (prevProps.asset.ticker !== this.props.asset.ticker) {
-      // this.props.fetchChartData(this.props.asset.ticker, this.state.selectedTimeRange);
-    // }
-
     if (prevProps.chartData && this.props.chartData && this.props.chartData[this.state.selectedTimeRange] && prevProps.chartData[this.state.selectedTimeRange] !== this.props.chartData[this.state.selectedTimeRange]) {
       this.setState({currentDataIndex: Object.keys(this.props.chartData[this.state.selectedTimeRange].data).length - 1});
     }
@@ -82,11 +76,19 @@ export default class AssetChart extends Component {
   }
   
   Header() {
-    const { asset, chartData } = this.props;
+    const { asset } = this.props;
+    const { selectedTimeRange } = this.state;
+    let chartData = this.props.chartData;
 
-    if (!chartData || !chartData[this.state.selectedTimeRange]) return null
-
-    const chartValues = Object.values(chartData[this.state.selectedTimeRange].data) || [];
+    if (!chartData[selectedTimeRange]) chartData = {
+      ...chartData,
+      [selectedTimeRange]: {
+        high: 10,
+        low: 0,
+        data: {},
+      }
+    }
+    const chartValues = Object.values(chartData[selectedTimeRange].data) || [];
     
     let startPrice = chartValues[0] || 0;
     let currentPrice = chartValues[this.state.currentDataIndex] || 0;
@@ -111,11 +113,11 @@ export default class AssetChart extends Component {
       priceDiff = <p>{priceDiff}</p>;
     
     return (
-      <div>
+      <header>
         <h1>{asset.name}</h1>
-        <h2>${currentPrice.toFixed(2)}</h2>
+        <AnimatedNumbers number={currentPrice} fontSize={36} />
         {priceDiff}
-      </div>
+      </header>
     );
   }
   

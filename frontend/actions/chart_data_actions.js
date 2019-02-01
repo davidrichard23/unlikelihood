@@ -4,32 +4,32 @@ export const RECEIVE_CHART_DATA = 'RECEIVE_CHART_DATA';
 export const RECEIVE_MULTIPLE_CHART_DATA = 'RECEIVE_MULTIPLE_CHART_DATA';
 
 
-const receiveChartData = (chartData, ticker, range) => ({
+const receiveChartData = (chartData, symbol, range) => ({
   type: RECEIVE_CHART_DATA,
   chartData,
-  ticker,
+  symbol,
   range
 });
 
-const receiveMultipleChartData = chartData => ({
+const receiveMultipleChartData = (chartData, range) => ({
   type: RECEIVE_MULTIPLE_CHART_DATA,
-  chartData
+  chartData,
+  range
 });
 
 
-export const fetchChartData = (ticker, range) => dispatch => {
-  return IexApiUtil.fetchChartData(ticker, range)
+export const fetchChartData = (symbol, range) => dispatch => {
+  return IexApiUtil.fetchChartData(symbol, range)
   .then(data => {
-    return dispatch(receiveChartData(formatData(data), ticker, range));
+    return dispatch(receiveChartData(formatData(data), symbol, range));
   });
 };
 
 
-export const fetchMultipleChartData = (tickers, range) => dispatch => {
-  return IexApiUtil.fetchMultipleChartData(tickers, range)
+export const fetchMultipleChartData = (symbols, range) => dispatch => {
+  return IexApiUtil.fetchMultipleChartData(symbols, range)
   .then(data => {
     const chartData = {};
-    console.log(data)
     Object.keys(data).forEach(key => {
       chartData[key] = {[range]: formatData(data[key].chart)};
     });

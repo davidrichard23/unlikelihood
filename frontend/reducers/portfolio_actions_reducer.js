@@ -10,8 +10,8 @@ export default (state = {}, action) => {
     }
     case RECEIVE_PORTFOLIO_ACTION: {
       const newState = merge({}, state);
-      if (!newState[action.portfolioAction.asset_id]) newState[action.portfolioAction.asset_id] = [];
-      newState[action.portfolioAction.asset_id].push(action.portfolioAction);
+      if (!newState[action.portfolioAction.asset_symbol]) newState[action.portfolioAction.asset_symbol] = [];
+      newState[action.portfolioAction.asset_symbol].push(action.portfolioAction);
       return newState;
     }
     default:

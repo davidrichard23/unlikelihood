@@ -13,12 +13,12 @@ export default (state={}, action) => {
     }
     case RECEIVE_WATCHED_ASSET:{
       const newState = merge({}, state);
-      newState.watchedAssetIds.push(action.assetId);
+      newState.watchedAssetSymbols.push(action.symbol);
       return newState;
     }
     case REMOVE_WATCHED_ASSET:{
       const newState = merge({}, state);
-      newState.watchedAssetIds = newState.watchedAssetIds.filter(id => id !== action.assetId);
+      newState.watchedAssetSymbols = newState.watchedAssetSymbols.filter(id => id !== action.symbol);
       return newState;
     }
     case ADD_BALANCE:{

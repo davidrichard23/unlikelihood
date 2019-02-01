@@ -64,14 +64,14 @@ class Search extends Component {
   }
 
   Asset(asset) {
-    const id = asset.id;
-    const ticker = highlightMatch(asset.ticker.toUpperCase(), this.state.searchText.toUpperCase());
-    const name = highlightMatch(asset.name, this.state.searchText);
+    const symbol = asset.symbol;
+    const highlightedSymbol = highlightMatch(symbol.toUpperCase(), this.state.searchText.toUpperCase());
+    const highlightedName = highlightMatch(asset.name, this.state.searchText);
 
     return (
-      <Link key={id} to={`/assets/${id}`} className='search-list-item'>
-        {ticker}
-        {name}
+      <Link key={symbol} to={`/assets/${symbol}`} className='search-list-item'>
+        {highlightedSymbol}
+        {highlightedName}
       </Link>
     );
   } 

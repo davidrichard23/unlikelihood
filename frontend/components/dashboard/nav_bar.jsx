@@ -12,7 +12,8 @@ export default class NavBar extends Component {
       dropdownOpen: false,
     };
 
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.openDropdown = this.openDropdown.bind(this);
+    this.closeDropdown = this.closeDropdown.bind(this);
   }
   
   render() {
@@ -27,15 +28,19 @@ export default class NavBar extends Component {
           </div>
           <div className="right">
             <Link className='btn' to='/'>Home</Link>
-            <button className='btn' onClick={this.toggleDropdown}>Account</button>
-            {dropdownOpen && <AccountDropdown isOpen={dropdownOpen} />}
+            <button className='btn' onClick={this.openDropdown}>Account</button>
+            {dropdownOpen && <AccountDropdown isOpen={dropdownOpen} close={this.closeDropdown} />}
           </div>
         </div>
       </div>
     );
   }
 
-  toggleDropdown() {
-    this.setState({dropdownOpen: !this.state.dropdownOpen});
+  openDropdown() {
+    this.setState({dropdownOpen: true});
+  }
+
+  closeDropdown() {
+    this.setState({dropdownOpen: false});
   }
 };

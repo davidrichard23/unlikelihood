@@ -1,25 +1,29 @@
-import * as AssetsApiUtil from '../util/assets_api_util';
+import * as IexApiUtil from '../util/iex_api_util';
 
-export const RECEIVE_ASSETS = 'RECEIVE_ASSETS'; 
-export const RECEIVE_ASSET = 'RECEIVE_ASSET'; 
+export const RECEIVE_ALL_ASSETS = 'RECEIVE_ALL_ASSETS'; 
+export const RECEIVE_ASSET_INFO = 'RECEIVE_ASSET_INFO'; 
 
-const receiveAssets = assets => ({
-  type: RECEIVE_ASSETS,
+const receiveAllAssets = assets => ({
+  type: RECEIVE_ALL_ASSETS,
   assets
 });
 
-const receiveAsset = asset => ({
-  type: RECEIVE_ASSET,
-  asset
+const receiveAssetInfo = assetInfo => ({
+  type: RECEIVE_ASSET_INFO,
+  assetInfo
 });
 
 
-export const fetchAssets = (query) => dispatch => {
-  return AssetsApiUtil.fetchAssets(query)
-  .then(assets => dispatch(receiveAssets(assets)));
+export const fetchAllAssets = () => dispatch => {
+  return IexApiUtil.fetchAllAssets()
+  .then(assets => {
+    const formattedAssets = {};
+    assets.forEach(asset => formattedAssets[asset.symbol] = asset);
+    return dispatch(receiveAllAssets(formattedAssets));
+  });
 };
 
-export const fetchAsset = id => dispatch => {
-  return AssetsApiUtil.fetchAsset(id)
-  .then(asset => dispatch(receiveAsset(asset)));
+export const fetchAssetInfo = symbol => dispatch => {
+  return IexApiUtil.fetchAssetInfo(symbol)
+  .then(assetInfo => dispatch(receiveAssetInfo(assetInfo)));
 };

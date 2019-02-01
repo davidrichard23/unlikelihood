@@ -17,24 +17,31 @@ export default class Asset extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAsset(this.props.match.params.assetId)
-    .then(() => this.props.fetchChartData(this.props.asset.ticker, '1D'));
+    const symbol = this.props.match.params.assetSymbol;
+    this.props.fetchAssetInfo(symbol);
+    this.props.fetchChartData(symbol, '1D');
+  }
 
-    this.props.fetchPortfolioActions();
+  componentDidUpdate(prevProps) {
+    const symbol = this.props.match.params.assetSymbol;
+    if (prevProps.match.params.assetSymbol !== symbol) {
+      this.props.fetchAssetInfo(symbol);
+      this.props.fetchChartData(symbol, '1D');
+    }
   }
 
   
   render() {
-    const { currentUser, asset, chartData, fetchChartData, ownedShares } = this.props;
+
+    const { currentUser, asset, chartData, ownedShares } = this.props;
 
     if (!asset) return null;
 
-    const isWatching = currentUser.watchedAssetIds.includes(asset.id);
+    const isWatching = currentUser.watchedAssetSymbols.includes(asset.symbol);
     const watchListText = isWatching ? 'Remove from Watchlist' : 'Add to Watchlist';
     const watchListAction = isWatching ? this.props.removeAssetFromWatchlist : this.props.addAssetToWatchlist;
 
-    const data = chartData[asset.ticker];
-    const color = data && data.open > data.close ? RED : GREEN;
+    const color = chartData && chartData.open > chartData.close ? RED : GREEN;
 
     return (
       <div className='asset-page'>
@@ -44,7 +51,7 @@ export default class Asset extends Component {
             <div className="main-content">
               <AssetChart 
                 asset={asset} 
-                chartData={data} 
+                chartData={chartData} 
                 onRangeChange={this.onChartRangeChange} 
                 color={color}
               />
@@ -53,12 +60,12 @@ export default class Asset extends Component {
             <div className="sidebar">
               <OrderForm 
                 asset={asset} 
-                price={data ? data['1D'].close : 0} 
+                price={chartData ? chartData['1D'].close : 0} 
                 ownedShares={ownedShares}
                 currentUser={currentUser} 
                 createPortfolioAction={this.props.createPortfolioAction}
               />
-              <button className="btn outline-btn watchlist-btn" onClick={() => watchListAction(asset.id)}>{watchListText}</button>
+              <button className="btn outline-btn watchlist-btn" onClick={() => watchListAction(asset.symbol)}>{watchListText}</button>
             </div>
           </div>
         </div>
@@ -81,6 +88,6 @@ export default class Asset extends Component {
 
 
   onChartRangeChange(newRange) {
-    this.props.fetchChartData(this.props.asset.ticker, newRange);
+    this.props.fetchChartData(this.props.asset.symbol, newRange);
   }
 }

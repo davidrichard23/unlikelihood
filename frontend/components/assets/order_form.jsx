@@ -26,10 +26,10 @@ export default class OrderForm extends Component {
       <div className="order-form">
         <div className="heading">
           <button className={'btn' + (isBuying ? ' selected green' : '')} onClick={() => this.setState({isBuying: true})}>
-            Buy {asset.ticker}
+            Buy {asset.symbol}
           </button>
           <button className={'btn' + (!isBuying ? ' selected green' : '')} onClick={() => this.setState({isBuying: false})}>
-            Sell {asset.ticker}
+            Sell {asset.symbol}
           </button>
         </div>
         <div className="row">
@@ -75,9 +75,9 @@ export default class OrderForm extends Component {
     
     if (error) text = error;
     else if (this.state.isBuying) 
-      text = `You are placing a market order for ${shares} ${shares === 1 ? 'share' : 'shares'} of ${this.props.asset.ticker}. Your order will be executed at the best available price.`;
+      text = `You are placing a market order for ${shares} ${shares === 1 ? 'share' : 'shares'} of ${this.props.asset.symbol}. Your order will be executed at the best available price.`;
     else
-      text = `You are placing a good for day market order to sell ${shares} ${shares === 1 ? 'share' : 'shares'} of ${this.props.asset.ticker}. Your order will be executed at the best available price.`;
+      text = `You are placing a good for day market order to sell ${shares} ${shares === 1 ? 'share' : 'shares'} of ${this.props.asset.symbol}. Your order will be executed at the best available price.`;
 
     return (
       <div className='review-text'>
@@ -100,7 +100,7 @@ export default class OrderForm extends Component {
     else if (isBuying && shares * price > currentUser.balance) 
       error = `You don’t have enough buying power to buy 1 share of CHK. Please deposit $${Math.abs(currentUser.balance - shares * price)} to purchase 1 share at market price.`;
     else if (!isBuying && shares > ownedShares) 
-      error = `Not enough shares. You can only sell ${ownedShares} ${ownedShares === 1 ? 'share' : 'shares'} of ${asset.ticker}.`;
+      error = `Not enough shares. You can only sell ${ownedShares} ${ownedShares === 1 ? 'share' : 'shares'} of ${asset.symbol}.`;
 
     return error
   }
@@ -108,7 +108,7 @@ export default class OrderForm extends Component {
   handleSubmit() {
     this.props.createPortfolioAction({
       shares: Number(this.state.shares),
-      asset_id: this.props.asset.id,
+      asset_symbol: this.props.asset.symbol,
       action: this.state.isBuying ? 'buy' : 'sell',
       price: this.props.price,
     })

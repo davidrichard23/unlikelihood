@@ -18,19 +18,27 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPortfolioActions()
-    .then(() => {
-      return this.props.fetchAssets([...this.props.ownedAssetIds, ...this.props.currentUser.watchedAssetIds]);
-    })
-    .then(() => {
-      const watchedAssetTickers = this.props.watchedAssets.map(asset => asset.ticker);
-      const ownedAssetTickers = this.props.ownedAssets.map(asset => asset.ticker);
-      if (watchedAssetTickers.length > 0 || ownedAssetTickers.length > 0)
-        return this.props.fetchMultipleChartData([...watchedAssetTickers, ...ownedAssetTickers], '1D');
-    })
-    .then(() => {
-      this.props.fetchPortfolioChartData('1D');
-    });
+    const watchedAssetSymbols = this.props.watchedAssets.map(asset => asset.symbol);
+    const ownedAssetSymbols = this.props.ownedAssets.map(asset => asset.symbol);
+    if (watchedAssetSymbols.length > 0 || ownedAssetSymbols.length > 0) {
+      this.fetchData();
+    }
+  }
+  
+  componentDidUpdate(prevProps) {
+    if (prevProps.watchedAssets.length !== this.props.watchedAssets.length || prevProps.ownedAssets.length !== this.props.ownedAssets.length)
+      this.fetchData();
+  }
+
+  fetchData() {
+    const ownedAssetSymbols = this.props.ownedAssets.map(asset => asset.symbol);
+    const watchedAssetSymbols = this.props.watchedAssets.map(asset => asset.symbol);
+
+    if (watchedAssetSymbols.length > 0)
+      this.props.fetchMultipleChartData(watchedAssetSymbols, '1D');
+    if (ownedAssetSymbols.length > 0)
+      this.props.fetchMultipleChartData(ownedAssetSymbols, '1D')
+        .then(() => this.props.fetchPortfolioChartData('1D'));
   }
 
   render() {
@@ -75,21 +83,21 @@ export default class Dashboard extends Component {
       </div>
     );
   }
-
+  
   WatchedItem(asset) {
-    const ticker = asset.ticker.toUpperCase();
+    const symbol = asset.symbol.toUpperCase();
     
-    if (!this.props.chartData[ticker]) return null;
+    if (!this.props.chartData[symbol]) return null;
 
-    const chartData = this.props.chartData[ticker]['1D'];
+    const chartData = this.props.chartData[symbol]['1D'];
 
     const keys = Object.keys(chartData.data);
     const currentprice = chartData.data[keys[keys.length - 1]];
     const color = chartData.open > chartData.close ? RED : GREEN;
 
     return (
-      <Link to={`assets/${asset.id}`} key={ticker} className='watchlist-item'>
-        <h3>{ticker}</h3>
+      <Link to={`assets/${asset.symbol}`} key={symbol} className='watchlist-item'>
+        <h3>{symbol}</h3>
         <div style={{width: 60}}>
           <MiniAssetChart 
             chartData={chartData} 
@@ -102,8 +110,10 @@ export default class Dashboard extends Component {
   }
 
   handleTimeRangeChange(newRange) {
-    const ownedAssetTickers = this.props.ownedAssets.map(asset => asset.ticker);
-    this.props.fetchMultipleChartData(ownedAssetTickers, newRange)
+    const ownedAssetSymbols = this.props.ownedAssets.map(asset => asset.symbol);
+    if (ownedAssetSymbols.length === 0) return
+
+    this.props.fetchMultipleChartData(ownedAssetSymbols, newRange)
     .then(() => {
       this.props.fetchPortfolioChartData(newRange);
     });

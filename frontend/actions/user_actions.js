@@ -23,14 +23,14 @@ const logoutCurrentUser = () => ({
   type: LOGOUT_CURRENT_USER
 });
 
-const receiveWatchedAsset = assetId => ({
+const receiveWatchedAsset = symbol => ({
   type: RECEIVE_WATCHED_ASSET,
-  assetId
+  symbol
 });
 
-const removeWatchedAsset = assetId => ({
+const removeWatchedAsset = symbol => ({
   type: REMOVE_WATCHED_ASSET,
-  assetId
+  symbol
 });
 
 const receiveErrors = errors => ({
@@ -66,7 +66,7 @@ export const logout = () => dispatch => {
   return SessionApiUtil.logout()
   .then(user => {
     dispatch(removeErrors());
-    return dispatch(receiveCurrentUser(user));
+    return dispatch(logoutCurrentUser());
   })
   .fail(errors => dispatch(receiveErrors(extractErrors(errors))));
 };
@@ -81,14 +81,14 @@ export const signup = formUser => dispatch => {
 };
 
 
-export const addAssetToWatchlist = id => dispatch => {
-  return WatchedAssetsApiUtil.addAssetToWatchlist(id)
-    .then(id => dispatch(receiveWatchedAsset(id)));
+export const addAssetToWatchlist = symbol => dispatch => {
+  return WatchedAssetsApiUtil.addAssetToWatchlist(symbol)
+  .then(() => dispatch(receiveWatchedAsset(symbol)));
 };
 
-export const removeAssetFromWatchlist = id => dispatch => {
-  return WatchedAssetsApiUtil.removeAssetFromWatchlist(id)
-    .then(id => dispatch(removeWatchedAsset(id)));
+export const removeAssetFromWatchlist = symbol => dispatch => {
+  return WatchedAssetsApiUtil.removeAssetFromWatchlist(symbol)
+    .then(() => dispatch(removeWatchedAsset(symbol)));
 };
 
 const extractErrors = errors => errors.responseJSON || ['Unknown Error'];
