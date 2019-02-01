@@ -40,5 +40,5 @@ You can access the site at https://unlikelihood.herokuapp.com
 
 ### Portfolio
 
-![](./docs/porfolio.png)
+![](./docs/portfolio.png)
 
