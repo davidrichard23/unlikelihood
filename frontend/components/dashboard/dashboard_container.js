@@ -4,6 +4,7 @@ import Dashboard from './dashboard';
 import { logout } from '../../actions/user_actions';
 import { fetchMultipleChartData } from '../../actions/chart_data_actions';
 import { fetchPortfolioChartData } from '../../actions/portfolio_chart_data_actions';
+import { fetchAllNews } from '../../actions/news_actions';
 
 const msp = state => {
   const assets = Object.values(state.entities.assets);
@@ -18,6 +19,7 @@ const msp = state => {
     watchedAssets: watchedAssets,
     chartData: state.entities.chartData,
     portfolioChartData: portfolioChartData,
+    articles: state.entities.news.all || [],
   };
 };
 
@@ -26,6 +28,7 @@ const mdp = dispatch => ({
   fetchMultipleChartData: (symbols, range) => dispatch(fetchMultipleChartData(symbols, range)),
   fetchPortfolioActions: () => dispatch(fetchPortfolioActions()),
   fetchPortfolioChartData: range => dispatch(fetchPortfolioChartData(range)),
+  fetchAllNews: () => dispatch(fetchAllNews()),
 });
 
 export default connect(msp, mdp)(Dashboard);

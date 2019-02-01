@@ -665,3 +665,33 @@ input[type=text]:focus, input[type=password]:focus {
   margin-top: -1px;
   /* padding-bottom: 4px; */
 }
+
+
+
+
+.news-container {
+  margin-top: 44px;
+}
+.news-container h1 {
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.news-container .news-link:hover {
+  background-color: rgba(0,0,0,0.03);
+}
+
+.news-container h3 {
+ font-size: 16px;
+ margin: 5px 0;
+}
+.news-container h4 {
+ font-size: 14px;
+ font-weight: 400;
+ margin: 5px 0;
+}
+.news-container p {
+  font-size: 16px;
+  margin-bottom: 40px;
+  height: 1.2em;
+  overflow: hidden;
+}

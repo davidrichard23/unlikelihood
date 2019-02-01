@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Nav from './nav_bar';
 import AssetChart from '../shared/asset_chart';
 import MiniAssetChart from '../shared/mini_asset_chart';
+import News from '../shared/news';
 import { Link } from 'react-router-dom';
 
 const GREEN = 'rgb(33, 206, 153)';
@@ -23,6 +24,8 @@ export default class Dashboard extends Component {
     if (watchedAssetSymbols.length > 0 || ownedAssetSymbols.length > 0) {
       this.fetchData();
     }
+
+    this.props.fetchAllNews();
   }
   
   componentDidUpdate(prevProps) {
@@ -42,7 +45,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { currentUser, portfolioChartData } = this.props;
+    const { currentUser, portfolioChartData, articles } = this.props;
 
     return (
       <div className='dashboard-page'>
@@ -56,6 +59,8 @@ export default class Dashboard extends Component {
                 color={GREEN}
                 onRangeChange={this.handleTimeRangeChange}
               />
+
+              <News articles={articles} />
             </div>
             <div className="sidebar">
               {this.Watchlist()}

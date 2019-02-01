@@ -37,3 +37,17 @@ export const fetchMultipleChartData = (symbols, range) => {
     data
   });
 };
+
+export const fetchStockNews = (symbol) => {
+  return $.ajax({
+    method: 'GET',
+    url: baseUrl + `/stock/${symbol}/news`,
+  });
+};
+
+export const fetchAllNews = () => {
+  return $.ajax({
+    method: 'GET',
+    url: baseUrl + `/stock/market/news`,
+  });
+};

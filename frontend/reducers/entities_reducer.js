@@ -4,6 +4,7 @@ import AssetsReducer from './assets_reducer';
 import ChartDataReducer from './chart_data_reducer';
 import PortfolioChartDataReducer from './portfolio_chart_data_reducer';
 import PortfolioActionsReducer from './portfolio_actions_reducer';
+import NewsReducer from './news_reducer';
 
 export default combineReducers({
   user: UserReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   portfolioActions: PortfolioActionsReducer,
   chartData: ChartDataReducer,
   portfolioChartData: PortfolioChartDataReducer,
+  news: NewsReducer,
 });

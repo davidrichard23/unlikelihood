@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Nav from '../dashboard/nav_bar';
 import AssetChart from '../shared/asset_chart';
 import OrderForm from './order_form';
+import News from '../shared/news';
 
 const GREEN = 'rgb(33, 206, 153)';
 const RED = 'rgb(255, 99, 64)';
@@ -20,6 +21,7 @@ export default class Asset extends Component {
     const symbol = this.props.match.params.assetSymbol;
     this.props.fetchAssetInfo(symbol);
     this.props.fetchChartData(symbol, '1D');
+    this.props.fetchStockNews(symbol);
   }
 
   componentDidUpdate(prevProps) {
@@ -33,7 +35,7 @@ export default class Asset extends Component {
   
   render() {
 
-    const { currentUser, asset, chartData, ownedShares } = this.props;
+    const { currentUser, asset, chartData, ownedShares, articles } = this.props;
 
     if (!asset) return null;
 
@@ -56,6 +58,8 @@ export default class Asset extends Component {
                 color={color}
               />
               {this.About()}
+
+              <News articles={articles} />
             </div>
             <div className="sidebar">
               <OrderForm 
