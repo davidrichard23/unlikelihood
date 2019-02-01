@@ -1,24 +1,30 @@
-# README
+# Unlikelihood
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Unlikelihood is a Robinhood clone where users can view stock market price data, add stocks to their watchlist, and test their investing skills through buying and selling stocks using the starting balance chosen when they created their account.
 
-Things you may want to cover:
+You can access the site at https://unlikelihood.herokuapp.com
 
-* Ruby version
+![](./docs/splash.png)
 
-* System dependencies
+## Tech Used
 
-* Configuration
+### Backend
 
-* Database creation
+1. Ruby
+2. Rails
+3. PostgreSQL
+4. jBuilder
+5. Heroku
 
-* Database initialization
+### Frontend
 
-* How to run the test suite
+1. Javascript
+2. React
+3. Redux
+4. Webpack
 
-* Services (job queues, cache servers, search engines, etc.)
+### Stock Market API
 
-* Deployment instructions
+1. [IEX](https://iextrading.com)
 
-* ...
+
