@@ -1,5 +1,6 @@
 import * as SessionApiUtil from '../util/session_api_util';
 import * as WatchedAssetsApiUtil from '../util/watched_assets_api_util';
+import { fetchPortfolioActions } from '../actions/portfolio_actions';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
@@ -57,6 +58,7 @@ export const login = formUser => dispatch => {
   return SessionApiUtil.login(formUser)
   .then(user => {
     dispatch(removeErrors());
+    dispatch(fetchPortfolioActions());
     return dispatch(receiveCurrentUser(user));
   })
   .fail(errors => dispatch(receiveErrors(extractErrors(errors))));

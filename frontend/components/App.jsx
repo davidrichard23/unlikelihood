@@ -14,7 +14,10 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchAllAssets();
-    this.props.fetchPortfolioActions();
+    
+    if (this.props.currentUser.id) {
+      this.props.fetchPortfolioActions();
+    }
   }
 
   render() {

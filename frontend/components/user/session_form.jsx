@@ -84,5 +84,4 @@ export default class SessionForm extends React.Component {
       this.handleSubmit(e);
     });
   }
-
 }
