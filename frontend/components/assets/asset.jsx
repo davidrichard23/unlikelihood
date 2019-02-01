@@ -29,6 +29,7 @@ export default class Asset extends Component {
     if (prevProps.match.params.assetSymbol !== symbol) {
       this.props.fetchAssetInfo(symbol);
       this.props.fetchChartData(symbol, '1D');
+      this.props.fetchStockNews(symbol);
     }
   }
 
