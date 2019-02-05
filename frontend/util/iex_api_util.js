@@ -48,6 +48,6 @@ export const fetchStockNews = (name) => {
 export const fetchAllNews = () => {
   return $.ajax({
     method: 'GET',
-    url: `https://newsapi.org/v2/top-headlines?apiKey=15871334f1654361af31fbeb9403dd74&category=business`,
+    url: `https://newsapi.org/v2/top-headlines?apiKey=15871334f1654361af31fbeb9403dd74&category=business&country=us`,
   });
 };
