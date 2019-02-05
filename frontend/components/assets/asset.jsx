@@ -17,19 +17,13 @@ export default class Asset extends Component {
     this.onChartRangeChange = this.onChartRangeChange.bind(this);
   }
 
-  componentDidMount() {
-    const symbol = this.props.match.params.assetSymbol;
-    this.props.fetchAssetInfo(symbol);
-    this.props.fetchChartData(symbol, '1D');
-    this.props.fetchStockNews(symbol);
-  }
-
   componentDidUpdate(prevProps) {
     const symbol = this.props.match.params.assetSymbol;
-    if (prevProps.match.params.assetSymbol !== symbol) {
-      this.props.fetchAssetInfo(symbol);
-      this.props.fetchChartData(symbol, '1D');
-      this.props.fetchStockNews(symbol);
+    const asset = this.props.asset;
+    if ((!prevProps.asset && asset) || (prevProps.match.params.assetSymbol !== symbol)) {
+      this.props.fetchAssetInfo(asset.symbol);
+      this.props.fetchChartData(asset.symbol, '1D');
+      this.props.fetchStockNews(this.props.asset.name);
     }
   }
 

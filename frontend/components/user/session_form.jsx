@@ -14,6 +14,10 @@ export default class SessionForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.loginWithDemo = this.loginWithDemo.bind(this);
   }
+
+  componentDidMount() {
+    this.props.removeErrors();
+  }
   
   render() {
 

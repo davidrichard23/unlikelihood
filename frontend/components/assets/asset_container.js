@@ -23,13 +23,15 @@ const msp = (state, ownProps) => {
       data: {},
     }
   };
+
+  const asset = state.entities.assets[symbol] || {};
   
   return {
     currentUser: state.entities.user,
     asset: state.entities.assets[symbol],
     chartData: chartData,
     ownedShares: ownedShares,
-    articles: state.entities.news[symbol] || [],
+    articles: state.entities.news[asset.name] || [],
   };
 };
 

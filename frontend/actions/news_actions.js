@@ -3,9 +3,9 @@ import * as IexApiUtil from '../util/iex_api_util';
 export const RECEIVE_STOCK_NEWS = 'RECEIVE_STOCK_NEWS';
 export const RECEIVE_ALL_NEWS = 'RECEIVE_ALL_NEWS';
 
-const receiveStockNews = (symbol, news) => ({
+const receiveStockNews = (name, news) => ({
   type: RECEIVE_STOCK_NEWS,
-  symbol,
+  name,
   news,
 });
 
@@ -15,16 +15,18 @@ const receiveAllNews = news => ({
 });
 
 
-export const fetchStockNews = symbol => dispatch => {
-  return IexApiUtil.fetchStockNews(symbol)
+export const fetchStockNews = name => dispatch => {
+  const searchName = name.toLowerCase().replace(' inc.', '');
+  return IexApiUtil.fetchStockNews(searchName)
     .then(news => {
-      return dispatch(receiveStockNews(symbol, news));
+      return dispatch(receiveStockNews(name, news.articles));
     });
 };
 
 export const fetchAllNews = () => dispatch => {
   return IexApiUtil.fetchAllNews()
     .then(news => {
-      return dispatch(receiveAllNews(news));
+      console.log(news.articles)
+      return dispatch(receiveAllNews(news.articles));
     });
 };

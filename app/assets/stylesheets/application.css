@@ -676,8 +676,14 @@ input[type=text]:focus, input[type=password]:focus {
   margin-bottom: 20px;
   font-weight: 400;
 }
-.news-container .news-link:hover {
+.news-link {
+  padding: 20px 0;
+}
+.news-link:hover {
   background-color: rgba(0,0,0,0.03);
+}
+.news-link a {
+  display: flex;
 }
 
 .news-container h3 {
@@ -691,7 +697,20 @@ input[type=text]:focus, input[type=password]:focus {
 }
 .news-container p {
   font-size: 16px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   height: 1.2em;
   overflow: hidden;
+}
+.news-image  {
+  width: 200px;
+  min-width: 200px;
+  height: 136px;
+  margin-right: 15px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
 }

@@ -6,7 +6,7 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case RECEIVE_STOCK_NEWS: {
-      const newState = merge({}, state, {[action.symbol]: action.news});
+      const newState = merge({}, state, {[action.name]: action.news});
       return newState;
     }
     case RECEIVE_ALL_NEWS: {

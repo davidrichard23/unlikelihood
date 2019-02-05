@@ -38,16 +38,16 @@ export const fetchMultipleChartData = (symbols, range) => {
   });
 };
 
-export const fetchStockNews = (symbol) => {
+export const fetchStockNews = (name) => {
   return $.ajax({
     method: 'GET',
-    url: baseUrl + `/stock/${symbol}/news`,
+    url: `https://newsapi.org/v2/everything?apiKey=15871334f1654361af31fbeb9403dd74&q=${name}&language=en`,
   });
 };
 
 export const fetchAllNews = () => {
   return $.ajax({
     method: 'GET',
-    url: baseUrl + `/stock/market/news`,
+    url: `https://newsapi.org/v2/top-headlines?apiKey=15871334f1654361af31fbeb9403dd74&category=business`,
   });
 };

@@ -39,7 +39,7 @@ const receiveErrors = errors => ({
   errors
 });
 
-const removeErrors = () => ({
+export const removeErrors = () => ({
   type: REMOVE_ERRORS,
 });
 

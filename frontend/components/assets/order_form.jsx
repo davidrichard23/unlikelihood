@@ -60,7 +60,7 @@ export default class OrderForm extends Component {
             {isBuying ? 
               `$${balance.toFixed(2)} Buying Power Available`
               : 
-              `${ownedShares} Shares Available`
+              `${ownedShares} ${ownedShares !== 1 ? 'Shares' : 'Share'} Available`
             }
           </p>
         </div>
@@ -75,9 +75,9 @@ export default class OrderForm extends Component {
     
     if (error) text = error;
     else if (this.state.isBuying) 
-      text = `You are placing a market order for ${shares} ${shares === 1 ? 'share' : 'shares'} of ${this.props.asset.symbol}. Your order will be executed at the best available price.`;
+      text = `You are placing a market order for ${shares} ${shares !== 1 ? 'shares' : 'share'} of ${this.props.asset.symbol}. Your order will be executed at the best available price.`;
     else
-      text = `You are placing a good for day market order to sell ${shares} ${shares === 1 ? 'share' : 'shares'} of ${this.props.asset.symbol}. Your order will be executed at the best available price.`;
+      text = `You are placing a good for day market order to sell ${shares} ${shares !== 1 ? 'shares' : 'share'} of ${this.props.asset.symbol}. Your order will be executed at the best available price.`;
 
     return (
       <div className='review-text'>
@@ -100,7 +100,7 @@ export default class OrderForm extends Component {
     else if (isBuying && shares * price > currentUser.balance) 
       error = `You don’t have enough buying power to buy 1 share of CHK. Please deposit $${Math.abs(currentUser.balance - shares * price)} to purchase 1 share at market price.`;
     else if (!isBuying && shares > ownedShares) 
-      error = `Not enough shares. You can only sell ${ownedShares} ${ownedShares === 1 ? 'share' : 'shares'} of ${asset.symbol}.`;
+      error = `Not enough shares. You can only sell ${ownedShares} ${ownedShares !== 1 ? 'shares' : 'share'} of ${asset.symbol}.`;
 
     return error
   }
