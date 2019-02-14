@@ -51,6 +51,7 @@ const formatData = data => {
 
   data.forEach((d, i) => {
     // some dates are separated by dashes and some are not separated
+    console.log(d)
     const date = d.date.split('-').join('');
     const minute = d.minute || '16:00:00';
     let dateStr = date.slice(0, 4) + '/' + date.slice(4, 6) + '/' + date.slice(6) + ' ' + minute;
@@ -78,9 +79,9 @@ const findFirstValidTimepoint = (data) => {
   let i = 1;
 
   while (!timepoint.close) {
-    if (!data[i].close || data[i].close === -1) timepoint = data[i];
+    if (data[i].close && data[i].close !== -1) timepoint = data[i];
     i++;
   }
 
   return timepoint;
-}
+};
