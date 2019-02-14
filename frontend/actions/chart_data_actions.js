@@ -45,22 +45,42 @@ const formatData = data => {
     high: -Infinity,
     low: Infinity,
     open: data[0].close,
-    close: data[data.length - 1].close,
+    close: null,
     data: {},
   };
 
-  data.forEach(d => {
+  data.forEach((d, i) => {
     // some dates are separated by dashes and some are not separated
     const date = d.date.split('-').join('');
     const minute = d.minute || '16:00:00';
     let dateStr = date.slice(0, 4) + '/' + date.slice(4, 6) + '/' + date.slice(6) + ' ' + minute;
 
-    if (d.close && d.close !== -1) {
-      chartData.data[dateStr] = d.close;
-      if (d.close > chartData.high) chartData.high = d.close;
-      if (d.close < chartData.low) chartData.low = d.close;
+    // if api doesn't return closing data for this timepoint, use the previous timepoint
+    if (!d.close || d.close === -1) {
+      // if there is no data for the first timepoint
+      if (i === 0) d.close = findFirstValidTimepoint(data).close;
+      else d.close = data[i - 1].close;
     }
+
+    chartData.data[dateStr] = d.close;
+    if (d.close > chartData.high) chartData.high = d.close;
+    if (d.close < chartData.low) chartData.low = d.close;
+
+    if (i === data.length - 1) chartData.close = d.close;
   });
 
   return chartData;
 };
+
+
+const findFirstValidTimepoint = (data) => {
+  let timepoint = {};
+  let i = 1;
+
+  while (!timepoint.close) {
+    if (!data[i].close || data[i].close === -1) timepoint = data[i];
+    i++;
+  }
+
+  return timepoint;
+}

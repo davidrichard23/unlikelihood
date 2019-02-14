@@ -26,7 +26,6 @@ export const fetchStockNews = name => dispatch => {
 export const fetchAllNews = () => dispatch => {
   return IexApiUtil.fetchAllNews()
     .then(news => {
-      console.log(news.articles)
       return dispatch(receiveAllNews(news.articles));
     });
 };
