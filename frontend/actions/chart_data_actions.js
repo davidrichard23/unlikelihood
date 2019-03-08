@@ -21,6 +21,7 @@ const receiveMultipleChartData = (chartData, range) => ({
 export const fetchChartData = (symbol, range) => dispatch => {
   return IexApiUtil.fetchChartData(symbol, range)
   .then(data => {
+    console.log(data)
     return dispatch(receiveChartData(formatData(data), symbol, range));
   });
 };
@@ -39,12 +40,12 @@ export const fetchMultipleChartData = (symbols, range) => dispatch => {
 
 
 
-
 const formatData = data => {
+  // console.log(data)
   const chartData = {
     high: -Infinity,
     low: Infinity,
-    open: data[0].close,
+    open: findFirstValidTimepoint(data).close,
     close: null,
     data: {},
   };

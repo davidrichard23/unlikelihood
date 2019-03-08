@@ -9,7 +9,7 @@ export default ({articles}) => {
         <div className="news-link" key={i}>
           <a href={article.url} target='_blank'>
             <div className="news-image">
-              <img src={article.urlToImage} alt=""/>
+              <img src={article.urlToImage.replace('http://', 'https://')} alt=""/>
             </div>
             <div>
               <h4>{article.source.name}</h4>
