@@ -21,6 +21,7 @@ export default class OrderForm extends Component {
     const { isReviewing, isBuying, shares } = this.state;
 
     const balance = currentUser.balance;
+    const p = price ? price : 0;
 
     return (
       <div className="order-form">
@@ -38,11 +39,11 @@ export default class OrderForm extends Component {
         </div>
         <div className="row grey-border-bottom">
           <p className='green-text'>Market Price</p>
-          <p>{price.toFixed(2)}</p>
+          <p>{p.toFixed(2)}</p>
         </div>
         <div className="row grey-border-bottom">
           <p>Estimated {isBuying ? 'Cost' : 'Credit'}</p>
-          <p>${(price * shares).toFixed(2)}</p>
+          <p>${(p * shares).toFixed(2)}</p>
         </div>
 
         {isReviewing && this.Review()}
