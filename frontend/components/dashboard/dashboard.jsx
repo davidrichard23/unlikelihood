@@ -97,7 +97,7 @@ export default class Dashboard extends Component {
     const chartData = this.props.chartData[symbol]['1D'];
 
     const keys = Object.keys(chartData.data);
-    const currentprice = chartData.data[keys[keys.length - 1]];
+    const currentprice = chartData.data[keys[keys.length - 1]] || 0;
     const color = chartData.open > chartData.close ? RED : GREEN;
 
     return (
@@ -120,6 +120,7 @@ export default class Dashboard extends Component {
 
     this.props.fetchMultipleChartData(ownedAssetSymbols, newRange)
     .then(() => {
+      console.log('adsafafsdsfd')
       this.props.fetchPortfolioChartData(newRange);
     });
   }

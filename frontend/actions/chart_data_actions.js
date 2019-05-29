@@ -7,7 +7,7 @@ export const RECEIVE_MULTIPLE_CHART_DATA = 'RECEIVE_MULTIPLE_CHART_DATA';
 const receiveChartData = (chartData, symbol, range) => {
   return {
     type: RECEIVE_CHART_DATA,
-    chartData: {...chartData, close: chartData.close},
+    chartData,
     symbol,
     range
   }
@@ -24,7 +24,6 @@ export const fetchChartData = (symbol, range) => dispatch => {
   return IexApiUtil.fetchChartData(symbol, range)
   .then(data => {
     const formattedData = formatData(data);
-    // console.log(formattedData)
     return dispatch(receiveChartData(formattedData, symbol, range));
   });
 };

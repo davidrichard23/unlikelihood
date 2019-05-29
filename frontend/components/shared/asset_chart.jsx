@@ -56,8 +56,7 @@ export default class AssetChart extends Component {
     const { chartData, color } = this.props;
     const { selectedTimeRange } = this.state;
 
-    // if (!chartData[selectedTimeRange]) return null;
-    if (!chartData[selectedTimeRange].close) return (
+    if (chartData[selectedTimeRange] && chartData[selectedTimeRange].close === null) return (
       <div>
         <h3>Sorry, No Chart Data Found For Today</h3>
         {this.TimeRange()}
